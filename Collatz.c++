@@ -35,6 +35,10 @@ pair<int, int> collatz_read (const string& s) {
 
 int collatz_eval (int i, int j) {
     // <your code>
+    // sanity checks
+    assert(i > 0);
+    assert(j > 0);
+    
     // define max length=1 in case input is 1
     int max_length = 1;
     
@@ -44,6 +48,7 @@ int collatz_eval (int i, int j) {
         j = i;
         i = temp;
     }
+    assert(i <= j);
     
     // check all numbers between i and j
     for (int k = i; k <=j; ++k) {
@@ -65,6 +70,7 @@ int collatz_eval (int i, int j) {
             max_length = length;
         }
     }
+    assert (max_length >= 1); 
     return max_length;
 }
 
