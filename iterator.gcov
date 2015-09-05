@@ -1,0 +1,1585 @@
+        -:    0:Source:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator
+        -:    0:Graph:TestCollatz.gcno
+        -:    0:Data:TestCollatz.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// -*- C++ -*-
+        -:    2://===-------------------------- iterator ----------------------------------===//
+        -:    3://
+        -:    4://                     The LLVM Compiler Infrastructure
+        -:    5://
+        -:    6:// This file is dual licensed under the MIT and the University of Illinois Open
+        -:    7:// Source Licenses. See LICENSE.TXT for details.
+        -:    8://
+        -:    9://===----------------------------------------------------------------------===//
+        -:   10:
+        -:   11:#ifndef _LIBCPP_ITERATOR
+        -:   12:#define _LIBCPP_ITERATOR
+        -:   13:
+        -:   14:/*
+        -:   15:    iterator synopsis
+        -:   16:
+        -:   17:namespace std
+        -:   18:{
+        -:   19:
+        -:   20:template<class Iterator>
+        -:   21:struct iterator_traits
+        -:   22:{
+        -:   23:    typedef typename Iterator::difference_type difference_type;
+        -:   24:    typedef typename Iterator::value_type value_type;
+        -:   25:    typedef typename Iterator::pointer pointer;
+        -:   26:    typedef typename Iterator::reference reference;
+        -:   27:    typedef typename Iterator::iterator_category iterator_category;
+        -:   28:};
+        -:   29:
+        -:   30:template<class T>
+        -:   31:struct iterator_traits<T*>
+        -:   32:{
+        -:   33:    typedef ptrdiff_t difference_type;
+        -:   34:    typedef T value_type;
+        -:   35:    typedef T* pointer;
+        -:   36:    typedef T& reference;
+        -:   37:    typedef random_access_iterator_tag iterator_category;
+        -:   38:};
+        -:   39:
+        -:   40:template<class T>
+        -:   41:struct iterator_traits<const T*>
+        -:   42:{
+        -:   43:    typedef ptrdiff_t difference_type;
+        -:   44:    typedef T value_type;
+        -:   45:    typedef const T* pointer;
+        -:   46:    typedef const T& reference;
+        -:   47:    typedef random_access_iterator_tag iterator_category;
+        -:   48:};
+        -:   49:
+        -:   50:template<class Category, class T, class Distance = ptrdiff_t,
+        -:   51:         class Pointer = T*, class Reference = T&>
+        -:   52:struct iterator
+        -:   53:{
+        -:   54:    typedef T         value_type;
+        -:   55:    typedef Distance  difference_type;
+        -:   56:    typedef Pointer   pointer;
+        -:   57:    typedef Reference reference;
+        -:   58:    typedef Category  iterator_category;
+        -:   59:};
+        -:   60:
+        -:   61:struct input_iterator_tag  {};
+        -:   62:struct output_iterator_tag {};
+        -:   63:struct forward_iterator_tag       : public input_iterator_tag         {};
+        -:   64:struct bidirectional_iterator_tag : public forward_iterator_tag       {};
+        -:   65:struct random_access_iterator_tag : public bidirectional_iterator_tag {};
+        -:   66:
+        -:   67:// extension: second argument not conforming to C++03
+        -:   68:template <class InputIterator>
+        -:   69:void advance(InputIterator& i,
+        -:   70:             typename iterator_traits<InputIterator>::difference_type n);
+        -:   71:
+        -:   72:template <class InputIterator>
+        -:   73:typename iterator_traits<InputIterator>::difference_type
+        -:   74:distance(InputIterator first, InputIterator last);
+        -:   75:
+        -:   76:template <class Iterator>
+        -:   77:class reverse_iterator
+        -:   78:    : public iterator<typename iterator_traits<Iterator>::iterator_category,
+        -:   79:                      typename iterator_traits<Iterator>::value_type,
+        -:   80:                      typename iterator_traits<Iterator>::difference_type,
+        -:   81:                      typename iterator_traits<Iterator>::pointer,
+        -:   82:                      typename iterator_traits<Iterator>::reference>
+        -:   83:{
+        -:   84:protected:
+        -:   85:    Iterator current;
+        -:   86:public:
+        -:   87:    typedef Iterator                                            iterator_type;
+        -:   88:    typedef typename iterator_traits<Iterator>::difference_type difference_type;
+        -:   89:    typedef typename iterator_traits<Iterator>::reference       reference;
+        -:   90:    typedef typename iterator_traits<Iterator>::pointer         pointer;
+        -:   91:
+        -:   92:    reverse_iterator();
+        -:   93:    explicit reverse_iterator(Iterator x);
+        -:   94:    template <class U> reverse_iterator(const reverse_iterator<U>& u);
+        -:   95:    Iterator base() const;
+        -:   96:    reference operator*() const;
+        -:   97:    pointer   operator->() const;
+        -:   98:    reverse_iterator& operator++();
+        -:   99:    reverse_iterator  operator++(int);
+        -:  100:    reverse_iterator& operator--();
+        -:  101:    reverse_iterator  operator--(int);
+        -:  102:    reverse_iterator  operator+ (difference_type n) const;
+        -:  103:    reverse_iterator& operator+=(difference_type n);
+        -:  104:    reverse_iterator  operator- (difference_type n) const;
+        -:  105:    reverse_iterator& operator-=(difference_type n);
+        -:  106:    reference         operator[](difference_type n) const;
+        -:  107:};
+        -:  108:
+        -:  109:template <class Iterator1, class Iterator2>
+        -:  110:bool
+        -:  111:operator==(const reverse_iterator<Iterator1>& x, const reverse_iterator<Iterator2>& y);
+        -:  112:
+        -:  113:template <class Iterator1, class Iterator2>
+        -:  114:bool
+        -:  115:operator<(const reverse_iterator<Iterator1>& x, const reverse_iterator<Iterator2>& y);
+        -:  116:
+        -:  117:template <class Iterator1, class Iterator2>
+        -:  118:bool
+        -:  119:operator!=(const reverse_iterator<Iterator1>& x, const reverse_iterator<Iterator2>& y);
+        -:  120:
+        -:  121:template <class Iterator1, class Iterator2>
+        -:  122:bool
+        -:  123:operator>(const reverse_iterator<Iterator1>& x, const reverse_iterator<Iterator2>& y);
+        -:  124:
+        -:  125:template <class Iterator1, class Iterator2>
+        -:  126:bool
+        -:  127:operator>=(const reverse_iterator<Iterator1>& x, const reverse_iterator<Iterator2>& y);
+        -:  128:
+        -:  129:template <class Iterator1, class Iterator2>
+        -:  130:bool
+        -:  131:operator<=(const reverse_iterator<Iterator1>& x, const reverse_iterator<Iterator2>& y);
+        -:  132:
+        -:  133:template <class Iterator1, class Iterator2>
+        -:  134:typename reverse_iterator<Iterator1>::difference_type
+        -:  135:operator-(const reverse_iterator<Iterator1>& x, const reverse_iterator<Iterator2>& y);
+        -:  136:
+        -:  137:template <class Iterator>
+        -:  138:reverse_iterator<Iterator>
+        -:  139:operator+(typename reverse_iterator<Iterator>::difference_type n, const reverse_iterator<Iterator>& x);
+        -:  140:
+        -:  141:template <class Iterator> reverse_iterator<Iterator> make_reverse_iterator(Iterator i); // C++14
+        -:  142:
+        -:  143:template <class Container>
+        -:  144:class back_insert_iterator
+        -:  145:{
+        -:  146:protected:
+        -:  147:    Container* container;
+        -:  148:public:
+        -:  149:    typedef Container                   container_type;
+        -:  150:    typedef void                        value_type;
+        -:  151:    typedef void                        difference_type;
+        -:  152:    typedef back_insert_iterator<Cont>& reference;
+        -:  153:    typedef void                        pointer;
+        -:  154:
+        -:  155:    explicit back_insert_iterator(Container& x);
+        -:  156:    back_insert_iterator& operator=(const typename Container::value_type& value);
+        -:  157:    back_insert_iterator& operator*();
+        -:  158:    back_insert_iterator& operator++();
+        -:  159:    back_insert_iterator  operator++(int);
+        -:  160:};
+        -:  161:
+        -:  162:template <class Container> back_insert_iterator<Container> back_inserter(Container& x);
+        -:  163:
+        -:  164:template <class Container>
+        -:  165:class front_insert_iterator
+        -:  166:{
+        -:  167:protected:
+        -:  168:    Container* container;
+        -:  169:public:
+        -:  170:    typedef Container                    container_type;
+        -:  171:    typedef void                         value_type;
+        -:  172:    typedef void                         difference_type;
+        -:  173:    typedef front_insert_iterator<Cont>& reference;
+        -:  174:    typedef void                         pointer;
+        -:  175:
+        -:  176:    explicit front_insert_iterator(Container& x);
+        -:  177:    front_insert_iterator& operator=(const typename Container::value_type& value);
+        -:  178:    front_insert_iterator& operator*();
+        -:  179:    front_insert_iterator& operator++();
+        -:  180:    front_insert_iterator  operator++(int);
+        -:  181:};
+        -:  182:
+        -:  183:template <class Container> front_insert_iterator<Container> front_inserter(Container& x);
+        -:  184:
+        -:  185:template <class Container>
+        -:  186:class insert_iterator
+        -:  187:{
+        -:  188:protected:
+        -:  189:    Container* container;
+        -:  190:    typename Container::iterator iter;
+        -:  191:public:
+        -:  192:    typedef Container              container_type;
+        -:  193:    typedef void                   value_type;
+        -:  194:    typedef void                   difference_type;
+        -:  195:    typedef insert_iterator<Cont>& reference;
+        -:  196:    typedef void                   pointer;
+        -:  197:
+        -:  198:    insert_iterator(Container& x, typename Container::iterator i);
+        -:  199:    insert_iterator& operator=(const typename Container::value_type& value);
+        -:  200:    insert_iterator& operator*();
+        -:  201:    insert_iterator& operator++();
+        -:  202:    insert_iterator& operator++(int);
+        -:  203:};
+        -:  204:
+        -:  205:template <class Container, class Iterator>
+        -:  206:insert_iterator<Container> inserter(Container& x, Iterator i);
+        -:  207:
+        -:  208:template <class T, class charT = char, class traits = char_traits<charT>, class Distance = ptrdiff_t>
+        -:  209:class istream_iterator
+        -:  210:    : public iterator<input_iterator_tag, T, Distance, const T*, const T&>
+        -:  211:{
+        -:  212:public:
+        -:  213:    typedef charT char_type;
+        -:  214:    typedef traits traits_type;
+        -:  215:    typedef basic_istream<charT,traits> istream_type;
+        -:  216:
+        -:  217:    istream_iterator();
+        -:  218:    istream_iterator(istream_type& s);
+        -:  219:    istream_iterator(const istream_iterator& x);
+        -:  220:    ~istream_iterator();
+        -:  221:
+        -:  222:    const T& operator*() const;
+        -:  223:    const T* operator->() const;
+        -:  224:    istream_iterator& operator++();
+        -:  225:    istream_iterator  operator++(int);
+        -:  226:};
+        -:  227:
+        -:  228:template <class T, class charT, class traits, class Distance>
+        -:  229:bool operator==(const istream_iterator<T,charT,traits,Distance>& x,
+        -:  230:                const istream_iterator<T,charT,traits,Distance>& y);
+        -:  231:template <class T, class charT, class traits, class Distance>
+        -:  232:bool operator!=(const istream_iterator<T,charT,traits,Distance>& x,
+        -:  233:                const istream_iterator<T,charT,traits,Distance>& y);
+        -:  234:
+        -:  235:template <class T, class charT = char, class traits = char_traits<charT> >
+        -:  236:class ostream_iterator
+        -:  237:    : public iterator<output_iterator_tag, void, void, void ,void>
+        -:  238:{
+        -:  239:public:
+        -:  240:    typedef charT char_type;
+        -:  241:    typedef traits traits_type;
+        -:  242:    typedef basic_ostream<charT,traits> ostream_type;
+        -:  243:
+        -:  244:    ostream_iterator(ostream_type& s);
+        -:  245:    ostream_iterator(ostream_type& s, const charT* delimiter);
+        -:  246:    ostream_iterator(const ostream_iterator& x);
+        -:  247:    ~ostream_iterator();
+        -:  248:    ostream_iterator& operator=(const T& value);
+        -:  249:
+        -:  250:    ostream_iterator& operator*();
+        -:  251:    ostream_iterator& operator++();
+        -:  252:    ostream_iterator& operator++(int);
+        -:  253:};
+        -:  254:
+        -:  255:template<class charT, class traits = char_traits<charT> >
+        -:  256:class istreambuf_iterator
+        -:  257:    : public iterator<input_iterator_tag, charT,
+        -:  258:                      typename traits::off_type, unspecified,
+        -:  259:                      charT>
+        -:  260:{
+        -:  261:public:
+        -:  262:    typedef charT                         char_type;
+        -:  263:    typedef traits                        traits_type;
+        -:  264:    typedef typename traits::int_type     int_type;
+        -:  265:    typedef basic_streambuf<charT,traits> streambuf_type;
+        -:  266:    typedef basic_istream<charT,traits>   istream_type;
+        -:  267:
+        -:  268:    istreambuf_iterator() noexcept;
+        -:  269:    istreambuf_iterator(istream_type& s) noexcept;
+        -:  270:    istreambuf_iterator(streambuf_type* s) noexcept;
+        -:  271:    istreambuf_iterator(a-private-type) noexcept;
+        -:  272:
+        -:  273:    charT                operator*() const;
+        -:  274:    pointer operator->() const;
+        -:  275:    istreambuf_iterator& operator++();
+        -:  276:    a-private-type       operator++(int);
+        -:  277:
+        -:  278:    bool equal(const istreambuf_iterator& b) const;
+        -:  279:};
+        -:  280:
+        -:  281:template <class charT, class traits>
+        -:  282:bool operator==(const istreambuf_iterator<charT,traits>& a,
+        -:  283:                const istreambuf_iterator<charT,traits>& b);
+        -:  284:template <class charT, class traits>
+        -:  285:bool operator!=(const istreambuf_iterator<charT,traits>& a,
+        -:  286:                const istreambuf_iterator<charT,traits>& b);
+        -:  287:
+        -:  288:template <class charT, class traits = char_traits<charT> >
+        -:  289:class ostreambuf_iterator
+        -:  290:    : public iterator<output_iterator_tag, void, void, void, void>
+        -:  291:{
+        -:  292:public:
+        -:  293:    typedef charT                         char_type;
+        -:  294:    typedef traits                        traits_type;
+        -:  295:    typedef basic_streambuf<charT,traits> streambuf_type;
+        -:  296:    typedef basic_ostream<charT,traits>   ostream_type;
+        -:  297:
+        -:  298:    ostreambuf_iterator(ostream_type& s) noexcept;
+        -:  299:    ostreambuf_iterator(streambuf_type* s) noexcept;
+        -:  300:    ostreambuf_iterator& operator=(charT c);
+        -:  301:    ostreambuf_iterator& operator*();
+        -:  302:    ostreambuf_iterator& operator++();
+        -:  303:    ostreambuf_iterator& operator++(int);
+        -:  304:    bool failed() const noexcept;
+        -:  305:};
+        -:  306:
+        -:  307:template <class C> auto begin(C& c) -> decltype(c.begin());
+        -:  308:template <class C> auto begin(const C& c) -> decltype(c.begin());
+        -:  309:template <class C> auto end(C& c) -> decltype(c.end());
+        -:  310:template <class C> auto end(const C& c) -> decltype(c.end());
+        -:  311:template <class T, size_t N> T* begin(T (&array)[N]);
+        -:  312:template <class T, size_t N> T* end(T (&array)[N]);
+        -:  313:
+        -:  314:template <class C> auto cbegin(const C& c) -> decltype(std::begin(c));        // C++14
+        -:  315:template <class C> auto cend(const C& c) -> decltype(std::end(c));            // C++14
+        -:  316:template <class C> auto rbegin(C& c) -> decltype(c.rbegin());                 // C++14
+        -:  317:template <class C> auto rbegin(const C& c) -> decltype(c.rbegin());           // C++14
+        -:  318:template <class C> auto rend(C& c) -> decltype(c.rend());                     // C++14
+        -:  319:template <class C> auto rend(const C& c) -> decltype(c.rend());               // C++14
+        -:  320:template <class E> reverse_iterator<const E*> rbegin(initializer_list<E> il); // C++14
+        -:  321:template <class E> reverse_iterator<const E*> rend(initializer_list<E> il);   // C++14
+        -:  322:template <class T, size_t N> reverse_iterator<T*> rbegin(T (&array)[N]);      // C++14
+        -:  323:template <class T, size_t N> reverse_iterator<T*> rend(T (&array)[N]);        // C++14
+        -:  324:template <class C> auto crbegin(const C& c) -> decltype(std::rbegin(c));      // C++14
+        -:  325:template <class C> auto crend(const C& c) -> decltype(std::rend(c));          // C++14
+        -:  326:
+        -:  327:}  // std
+        -:  328:
+        -:  329:*/
+        -:  330:
+        -:  331:#include <__config>
+        -:  332:#include <__functional_base>
+        -:  333:#include <type_traits>
+        -:  334:#include <cstddef>
+        -:  335:#include <iosfwd>
+        -:  336:#include <initializer_list>
+        -:  337:#ifdef __APPLE__
+        -:  338:#include <Availability.h>
+        -:  339:#endif
+        -:  340:
+        -:  341:#include <__debug>
+        -:  342:
+        -:  343:#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+        -:  344:#pragma GCC system_header
+        -:  345:#endif
+        -:  346:
+        -:  347:_LIBCPP_BEGIN_NAMESPACE_STD
+        -:  348:
+        -:  349:struct _LIBCPP_TYPE_VIS_ONLY input_iterator_tag {};
+        -:  350:struct _LIBCPP_TYPE_VIS_ONLY output_iterator_tag {};
+        -:  351:struct _LIBCPP_TYPE_VIS_ONLY forward_iterator_tag       : public input_iterator_tag {};
+        -:  352:struct _LIBCPP_TYPE_VIS_ONLY bidirectional_iterator_tag : public forward_iterator_tag {};
+        -:  353:struct _LIBCPP_TYPE_VIS_ONLY random_access_iterator_tag : public bidirectional_iterator_tag {};
+        -:  354:
+        -:  355:template <class _Tp>
+        -:  356:struct __has_iterator_category
+        -:  357:{
+        -:  358:private:
+        -:  359:    struct __two {char __lx; char __lxx;};
+        -:  360:    template <class _Up> static __two __test(...);
+        -:  361:    template <class _Up> static char __test(typename _Up::iterator_category* = 0);
+        -:  362:public:
+        -:  363:    static const bool value = sizeof(__test<_Tp>(0)) == 1;
+        -:  364:};
+        -:  365:
+        -:  366:template <class _Iter, bool> struct __iterator_traits_impl {};
+        -:  367:
+        -:  368:template <class _Iter>
+        -:  369:struct __iterator_traits_impl<_Iter, true>
+        -:  370:{
+        -:  371:    typedef typename _Iter::difference_type   difference_type;
+        -:  372:    typedef typename _Iter::value_type        value_type;
+        -:  373:    typedef typename _Iter::pointer           pointer;
+        -:  374:    typedef typename _Iter::reference         reference;
+        -:  375:    typedef typename _Iter::iterator_category iterator_category;
+        -:  376:};
+        -:  377:
+        -:  378:template <class _Iter, bool> struct __iterator_traits {};
+        -:  379:
+        -:  380:template <class _Iter>
+        -:  381:struct __iterator_traits<_Iter, true>
+        -:  382:    :  __iterator_traits_impl
+        -:  383:      <
+        -:  384:        _Iter,
+        -:  385:        is_convertible<typename _Iter::iterator_category, input_iterator_tag>::value ||
+        -:  386:        is_convertible<typename _Iter::iterator_category, output_iterator_tag>::value
+        -:  387:      >
+        -:  388:{};
+        -:  389:
+        -:  390:// iterator_traits<Iterator> will only have the nested types if Iterator::iterator_category
+        -:  391://    exists.  Else iterator_traits<Iterator> will be an empty class.  This is a
+        -:  392://    conforming extension which allows some programs to compile and behave as
+        -:  393://    the client expects instead of failing at compile time.
+        -:  394:
+        -:  395:template <class _Iter>
+        -:  396:struct _LIBCPP_TYPE_VIS_ONLY iterator_traits
+        -:  397:    : __iterator_traits<_Iter, __has_iterator_category<_Iter>::value> {};
+        -:  398:
+        -:  399:template<class _Tp>
+        -:  400:struct _LIBCPP_TYPE_VIS_ONLY iterator_traits<_Tp*>
+        -:  401:{
+        -:  402:    typedef ptrdiff_t difference_type;
+        -:  403:    typedef typename remove_const<_Tp>::type value_type;
+        -:  404:    typedef _Tp* pointer;
+        -:  405:    typedef _Tp& reference;
+        -:  406:    typedef random_access_iterator_tag iterator_category;
+        -:  407:};
+        -:  408:
+        -:  409:template <class _Tp, class _Up, bool = __has_iterator_category<iterator_traits<_Tp> >::value>
+        -:  410:struct __has_iterator_category_convertible_to
+        -:  411:    : public integral_constant<bool, is_convertible<typename iterator_traits<_Tp>::iterator_category, _Up>::value>
+        -:  412:{};
+        -:  413:
+        -:  414:template <class _Tp, class _Up>
+        -:  415:struct __has_iterator_category_convertible_to<_Tp, _Up, false> : public false_type {};
+        -:  416:
+        -:  417:template <class _Tp>
+        -:  418:struct __is_input_iterator : public __has_iterator_category_convertible_to<_Tp, input_iterator_tag> {};
+        -:  419:
+        -:  420:template <class _Tp>
+        -:  421:struct __is_forward_iterator : public __has_iterator_category_convertible_to<_Tp, forward_iterator_tag> {};
+        -:  422:
+        -:  423:template <class _Tp>
+        -:  424:struct __is_bidirectional_iterator : public __has_iterator_category_convertible_to<_Tp, bidirectional_iterator_tag> {};
+        -:  425:
+        -:  426:template <class _Tp>
+        -:  427:struct __is_random_access_iterator : public __has_iterator_category_convertible_to<_Tp, random_access_iterator_tag> {};
+        -:  428:
+        -:  429:template<class _Category, class _Tp, class _Distance = ptrdiff_t,
+        -:  430:         class _Pointer = _Tp*, class _Reference = _Tp&>
+        -:  431:struct _LIBCPP_TYPE_VIS_ONLY iterator
+        -:  432:{
+        -:  433:    typedef _Tp        value_type;
+        -:  434:    typedef _Distance  difference_type;
+        -:  435:    typedef _Pointer   pointer;
+        -:  436:    typedef _Reference reference;
+        -:  437:    typedef _Category  iterator_category;
+        -:  438:};
+        -:  439:
+        -:  440:template <class _InputIter>
+        -:  441:inline _LIBCPP_INLINE_VISIBILITY
+        -:  442:void __advance(_InputIter& __i,
+        -:  443:             typename iterator_traits<_InputIter>::difference_type __n, input_iterator_tag)
+        -:  444:{
+        -:  445:    for (; __n > 0; --__n)
+        -:  446:        ++__i;
+        -:  447:}
+        -:  448:
+        -:  449:template <class _BiDirIter>
+        -:  450:inline _LIBCPP_INLINE_VISIBILITY
+        -:  451:void __advance(_BiDirIter& __i,
+        -:  452:             typename iterator_traits<_BiDirIter>::difference_type __n, bidirectional_iterator_tag)
+        -:  453:{
+        -:  454:    if (__n >= 0)
+        -:  455:        for (; __n > 0; --__n)
+        -:  456:            ++__i;
+        -:  457:    else
+        -:  458:        for (; __n < 0; ++__n)
+        -:  459:            --__i;
+        -:  460:}
+        -:  461:
+        -:  462:template <class _RandIter>
+        -:  463:inline _LIBCPP_INLINE_VISIBILITY
+        -:  464:void __advance(_RandIter& __i,
+        -:  465:             typename iterator_traits<_RandIter>::difference_type __n, random_access_iterator_tag)
+        -:  466:{
+        -:  467:   __i += __n;
+        -:  468:}
+        -:  469:
+        -:  470:template <class _InputIter>
+        -:  471:inline _LIBCPP_INLINE_VISIBILITY
+        -:  472:void advance(_InputIter& __i,
+        -:  473:             typename iterator_traits<_InputIter>::difference_type __n)
+        -:  474:{
+        -:  475:    __advance(__i, __n, typename iterator_traits<_InputIter>::iterator_category());
+        -:  476:}
+        -:  477:
+        -:  478:template <class _InputIter>
+        -:  479:inline _LIBCPP_INLINE_VISIBILITY
+        -:  480:typename iterator_traits<_InputIter>::difference_type
+        -:  481:__distance(_InputIter __first, _InputIter __last, input_iterator_tag)
+        -:  482:{
+        -:  483:    typename iterator_traits<_InputIter>::difference_type __r(0);
+        -:  484:    for (; __first != __last; ++__first)
+        -:  485:        ++__r;
+        -:  486:    return __r;
+        -:  487:}
+        -:  488:
+        -:  489:template <class _RandIter>
+        -:  490:inline _LIBCPP_INLINE_VISIBILITY
+        -:  491:typename iterator_traits<_RandIter>::difference_type
+function _ZNSt3__110__distanceIPcEENS_15iterator_traitsIT_E15difference_typeES3_S3_NS_26random_access_iterator_tagE called 2 returned 100% blocks executed 100%
+        -:  492:__distance(_RandIter __first, _RandIter __last, random_access_iterator_tag)
+        -:  493:{
+        2:  494:    return __last - __first;
+        -:  495:}
+        -:  496:
+        -:  497:template <class _InputIter>
+        -:  498:inline _LIBCPP_INLINE_VISIBILITY
+        -:  499:typename iterator_traits<_InputIter>::difference_type
+function _ZNSt3__18distanceIPcEENS_15iterator_traitsIT_E15difference_typeES3_S3_ called 2 returned 100% blocks executed 100%
+        -:  500:distance(_InputIter __first, _InputIter __last)
+        -:  501:{
+        2:  502:    return __distance(__first, __last, typename iterator_traits<_InputIter>::iterator_category());
+        -:  503:}
+        -:  504:
+        -:  505:template <class _ForwardIter>
+        -:  506:inline _LIBCPP_INLINE_VISIBILITY
+        -:  507:_ForwardIter
+        -:  508:next(_ForwardIter __x,
+        -:  509:     typename iterator_traits<_ForwardIter>::difference_type __n = 1,
+        -:  510:     typename enable_if<__is_forward_iterator<_ForwardIter>::value>::type* = 0)
+        -:  511:{
+        -:  512:    _VSTD::advance(__x, __n);
+        -:  513:    return __x;
+        -:  514:}
+        -:  515:
+        -:  516:template <class _BidiretionalIter>
+        -:  517:inline _LIBCPP_INLINE_VISIBILITY
+        -:  518:_BidiretionalIter
+        -:  519:prev(_BidiretionalIter __x,
+        -:  520:     typename iterator_traits<_BidiretionalIter>::difference_type __n = 1,
+        -:  521:     typename enable_if<__is_bidirectional_iterator<_BidiretionalIter>::value>::type* = 0)
+        -:  522:{
+        -:  523:    _VSTD::advance(__x, -__n);
+        -:  524:    return __x;
+        -:  525:}
+        -:  526:
+        -:  527:template <class _Iter>
+        -:  528:class _LIBCPP_TYPE_VIS_ONLY reverse_iterator
+        -:  529:    : public iterator<typename iterator_traits<_Iter>::iterator_category,
+        -:  530:                      typename iterator_traits<_Iter>::value_type,
+        -:  531:                      typename iterator_traits<_Iter>::difference_type,
+        -:  532:                      typename iterator_traits<_Iter>::pointer,
+        -:  533:                      typename iterator_traits<_Iter>::reference>
+        -:  534:{
+        -:  535:private:
+        -:  536:    mutable _Iter __t;  // no longer used as of LWG #2360, not removed due to ABI break
+        -:  537:protected:
+        -:  538:    _Iter current;
+        -:  539:public:
+        -:  540:    typedef _Iter                                            iterator_type;
+        -:  541:    typedef typename iterator_traits<_Iter>::difference_type difference_type;
+        -:  542:    typedef typename iterator_traits<_Iter>::reference       reference;
+        -:  543:    typedef typename iterator_traits<_Iter>::pointer         pointer;
+        -:  544:
+        -:  545:    _LIBCPP_INLINE_VISIBILITY reverse_iterator() : current() {}
+        -:  546:    _LIBCPP_INLINE_VISIBILITY explicit reverse_iterator(_Iter __x) : __t(__x), current(__x) {}
+        -:  547:    template <class _Up> _LIBCPP_INLINE_VISIBILITY reverse_iterator(const reverse_iterator<_Up>& __u)
+        -:  548:        : __t(__u.base()), current(__u.base()) {}
+        -:  549:    _LIBCPP_INLINE_VISIBILITY _Iter base() const {return current;}
+        -:  550:    _LIBCPP_INLINE_VISIBILITY reference operator*() const {_Iter __tmp = current; return *--__tmp;}
+        -:  551:    _LIBCPP_INLINE_VISIBILITY pointer  operator->() const {return _VSTD::addressof(operator*());}
+        -:  552:    _LIBCPP_INLINE_VISIBILITY reverse_iterator& operator++() {--current; return *this;}
+        -:  553:    _LIBCPP_INLINE_VISIBILITY reverse_iterator  operator++(int)
+        -:  554:        {reverse_iterator __tmp(*this); --current; return __tmp;}
+        -:  555:    _LIBCPP_INLINE_VISIBILITY reverse_iterator& operator--() {++current; return *this;}
+        -:  556:    _LIBCPP_INLINE_VISIBILITY reverse_iterator  operator--(int)
+        -:  557:        {reverse_iterator __tmp(*this); ++current; return __tmp;}
+        -:  558:    _LIBCPP_INLINE_VISIBILITY reverse_iterator  operator+ (difference_type __n) const
+        -:  559:        {return reverse_iterator(current - __n);}
+        -:  560:    _LIBCPP_INLINE_VISIBILITY reverse_iterator& operator+=(difference_type __n)
+        -:  561:        {current -= __n; return *this;}
+        -:  562:    _LIBCPP_INLINE_VISIBILITY reverse_iterator  operator- (difference_type __n) const
+        -:  563:        {return reverse_iterator(current + __n);}
+        -:  564:    _LIBCPP_INLINE_VISIBILITY reverse_iterator& operator-=(difference_type __n)
+        -:  565:        {current += __n; return *this;}
+        -:  566:    _LIBCPP_INLINE_VISIBILITY reference         operator[](difference_type __n) const
+        -:  567:        {return current[-__n-1];}
+        -:  568:};
+        -:  569:
+        -:  570:template <class _Iter1, class _Iter2>
+        -:  571:inline _LIBCPP_INLINE_VISIBILITY
+        -:  572:bool
+        -:  573:operator==(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+        -:  574:{
+        -:  575:    return __x.base() == __y.base();
+        -:  576:}
+        -:  577:
+        -:  578:template <class _Iter1, class _Iter2>
+        -:  579:inline _LIBCPP_INLINE_VISIBILITY
+        -:  580:bool
+        -:  581:operator<(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+        -:  582:{
+        -:  583:    return __x.base() > __y.base();
+        -:  584:}
+        -:  585:
+        -:  586:template <class _Iter1, class _Iter2>
+        -:  587:inline _LIBCPP_INLINE_VISIBILITY
+        -:  588:bool
+        -:  589:operator!=(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+        -:  590:{
+        -:  591:    return __x.base() != __y.base();
+        -:  592:}
+        -:  593:
+        -:  594:template <class _Iter1, class _Iter2>
+        -:  595:inline _LIBCPP_INLINE_VISIBILITY
+        -:  596:bool
+        -:  597:operator>(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+        -:  598:{
+        -:  599:    return __x.base() < __y.base();
+        -:  600:}
+        -:  601:
+        -:  602:template <class _Iter1, class _Iter2>
+        -:  603:inline _LIBCPP_INLINE_VISIBILITY
+        -:  604:bool
+        -:  605:operator>=(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+        -:  606:{
+        -:  607:    return __x.base() <= __y.base();
+        -:  608:}
+        -:  609:
+        -:  610:template <class _Iter1, class _Iter2>
+        -:  611:inline _LIBCPP_INLINE_VISIBILITY
+        -:  612:bool
+        -:  613:operator<=(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+        -:  614:{
+        -:  615:    return __x.base() >= __y.base();
+        -:  616:}
+        -:  617:
+        -:  618:template <class _Iter1, class _Iter2>
+        -:  619:inline _LIBCPP_INLINE_VISIBILITY
+        -:  620:typename reverse_iterator<_Iter1>::difference_type
+        -:  621:operator-(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+        -:  622:{
+        -:  623:    return __y.base() - __x.base();
+        -:  624:}
+        -:  625:
+        -:  626:template <class _Iter>
+        -:  627:inline _LIBCPP_INLINE_VISIBILITY
+        -:  628:reverse_iterator<_Iter>
+        -:  629:operator+(typename reverse_iterator<_Iter>::difference_type __n, const reverse_iterator<_Iter>& __x)
+        -:  630:{
+        -:  631:    return reverse_iterator<_Iter>(__x.base() - __n);
+        -:  632:}
+        -:  633:
+        -:  634:#if _LIBCPP_STD_VER > 11
+        -:  635:template <class _Iter>
+        -:  636:inline _LIBCPP_INLINE_VISIBILITY
+        -:  637:reverse_iterator<_Iter> make_reverse_iterator(_Iter __i)
+        -:  638:{
+        -:  639:    return reverse_iterator<_Iter>(__i);
+        -:  640:}
+        -:  641:#endif
+        -:  642:
+        -:  643:template <class _Container>
+        -:  644:class _LIBCPP_TYPE_VIS_ONLY back_insert_iterator
+        -:  645:    : public iterator<output_iterator_tag,
+        -:  646:                      void,
+        -:  647:                      void,
+        -:  648:                      void,
+        -:  649:                      back_insert_iterator<_Container>&>
+        -:  650:{
+        -:  651:protected:
+        -:  652:    _Container* container;
+        -:  653:public:
+        -:  654:    typedef _Container container_type;
+        -:  655:
+        -:  656:    _LIBCPP_INLINE_VISIBILITY explicit back_insert_iterator(_Container& __x) : container(_VSTD::addressof(__x)) {}
+        -:  657:    _LIBCPP_INLINE_VISIBILITY back_insert_iterator& operator=(const typename _Container::value_type& __value_)
+        -:  658:        {container->push_back(__value_); return *this;}
+        -:  659:#ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+        -:  660:    _LIBCPP_INLINE_VISIBILITY back_insert_iterator& operator=(typename _Container::value_type&& __value_)
+        -:  661:        {container->push_back(_VSTD::move(__value_)); return *this;}
+        -:  662:#endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+        -:  663:    _LIBCPP_INLINE_VISIBILITY back_insert_iterator& operator*()     {return *this;}
+        -:  664:    _LIBCPP_INLINE_VISIBILITY back_insert_iterator& operator++()    {return *this;}
+        -:  665:    _LIBCPP_INLINE_VISIBILITY back_insert_iterator  operator++(int) {return *this;}
+        -:  666:};
+        -:  667:
+        -:  668:template <class _Container>
+        -:  669:inline _LIBCPP_INLINE_VISIBILITY
+        -:  670:back_insert_iterator<_Container>
+        -:  671:back_inserter(_Container& __x)
+        -:  672:{
+        -:  673:    return back_insert_iterator<_Container>(__x);
+        -:  674:}
+        -:  675:
+        -:  676:template <class _Container>
+        -:  677:class _LIBCPP_TYPE_VIS_ONLY front_insert_iterator
+        -:  678:    : public iterator<output_iterator_tag,
+        -:  679:                      void,
+        -:  680:                      void,
+        -:  681:                      void,
+        -:  682:                      front_insert_iterator<_Container>&>
+        -:  683:{
+        -:  684:protected:
+        -:  685:    _Container* container;
+        -:  686:public:
+        -:  687:    typedef _Container container_type;
+        -:  688:
+        -:  689:    _LIBCPP_INLINE_VISIBILITY explicit front_insert_iterator(_Container& __x) : container(_VSTD::addressof(__x)) {}
+        -:  690:    _LIBCPP_INLINE_VISIBILITY front_insert_iterator& operator=(const typename _Container::value_type& __value_)
+        -:  691:        {container->push_front(__value_); return *this;}
+        -:  692:#ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+        -:  693:    _LIBCPP_INLINE_VISIBILITY front_insert_iterator& operator=(typename _Container::value_type&& __value_)
+        -:  694:        {container->push_front(_VSTD::move(__value_)); return *this;}
+        -:  695:#endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+        -:  696:    _LIBCPP_INLINE_VISIBILITY front_insert_iterator& operator*()     {return *this;}
+        -:  697:    _LIBCPP_INLINE_VISIBILITY front_insert_iterator& operator++()    {return *this;}
+        -:  698:    _LIBCPP_INLINE_VISIBILITY front_insert_iterator  operator++(int) {return *this;}
+        -:  699:};
+        -:  700:
+        -:  701:template <class _Container>
+        -:  702:inline _LIBCPP_INLINE_VISIBILITY
+        -:  703:front_insert_iterator<_Container>
+        -:  704:front_inserter(_Container& __x)
+        -:  705:{
+        -:  706:    return front_insert_iterator<_Container>(__x);
+        -:  707:}
+        -:  708:
+        -:  709:template <class _Container>
+        -:  710:class _LIBCPP_TYPE_VIS_ONLY insert_iterator
+        -:  711:    : public iterator<output_iterator_tag,
+        -:  712:                      void,
+        -:  713:                      void,
+        -:  714:                      void,
+        -:  715:                      insert_iterator<_Container>&>
+        -:  716:{
+        -:  717:protected:
+        -:  718:    _Container* container;
+        -:  719:    typename _Container::iterator iter;
+        -:  720:public:
+        -:  721:    typedef _Container container_type;
+        -:  722:
+        -:  723:    _LIBCPP_INLINE_VISIBILITY insert_iterator(_Container& __x, typename _Container::iterator __i)
+        -:  724:        : container(_VSTD::addressof(__x)), iter(__i) {}
+        -:  725:    _LIBCPP_INLINE_VISIBILITY insert_iterator& operator=(const typename _Container::value_type& __value_)
+        -:  726:        {iter = container->insert(iter, __value_); ++iter; return *this;}
+        -:  727:#ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+        -:  728:    _LIBCPP_INLINE_VISIBILITY insert_iterator& operator=(typename _Container::value_type&& __value_)
+        -:  729:        {iter = container->insert(iter, _VSTD::move(__value_)); ++iter; return *this;}
+        -:  730:#endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+        -:  731:    _LIBCPP_INLINE_VISIBILITY insert_iterator& operator*()        {return *this;}
+        -:  732:    _LIBCPP_INLINE_VISIBILITY insert_iterator& operator++()       {return *this;}
+        -:  733:    _LIBCPP_INLINE_VISIBILITY insert_iterator& operator++(int)    {return *this;}
+        -:  734:};
+        -:  735:
+        -:  736:template <class _Container>
+        -:  737:inline _LIBCPP_INLINE_VISIBILITY
+        -:  738:insert_iterator<_Container>
+        -:  739:inserter(_Container& __x, typename _Container::iterator __i)
+        -:  740:{
+        -:  741:    return insert_iterator<_Container>(__x, __i);
+        -:  742:}
+        -:  743:
+        -:  744:template <class _Tp, class _CharT = char,
+        -:  745:          class _Traits = char_traits<_CharT>, class _Distance = ptrdiff_t>
+        -:  746:class _LIBCPP_TYPE_VIS_ONLY istream_iterator
+        -:  747:    : public iterator<input_iterator_tag, _Tp, _Distance, const _Tp*, const _Tp&>
+        -:  748:{
+        -:  749:public:
+        -:  750:    typedef _CharT char_type;
+        -:  751:    typedef _Traits traits_type;
+        -:  752:    typedef basic_istream<_CharT,_Traits> istream_type;
+        -:  753:private:
+        -:  754:    istream_type* __in_stream_;
+        -:  755:    _Tp __value_;
+        -:  756:public:
+        -:  757:    _LIBCPP_INLINE_VISIBILITY istream_iterator() : __in_stream_(0) {}
+        -:  758:    _LIBCPP_INLINE_VISIBILITY istream_iterator(istream_type& __s) : __in_stream_(&__s)
+        -:  759:        {
+        -:  760:            if (!(*__in_stream_ >> __value_))
+        -:  761:                __in_stream_ = 0;
+        -:  762:        }
+        -:  763:
+        -:  764:    _LIBCPP_INLINE_VISIBILITY const _Tp& operator*() const {return __value_;}
+        -:  765:    _LIBCPP_INLINE_VISIBILITY const _Tp* operator->() const {return &(operator*());}
+        -:  766:    _LIBCPP_INLINE_VISIBILITY istream_iterator& operator++()
+        -:  767:        {
+        -:  768:            if (!(*__in_stream_ >> __value_))
+        -:  769:                __in_stream_ = 0;
+        -:  770:            return *this;
+        -:  771:        }
+        -:  772:    _LIBCPP_INLINE_VISIBILITY istream_iterator  operator++(int)
+        -:  773:        {istream_iterator __t(*this); ++(*this); return __t;}
+        -:  774:
+        -:  775:    friend _LIBCPP_INLINE_VISIBILITY
+        -:  776:    bool operator==(const istream_iterator& __x, const istream_iterator& __y)
+        -:  777:        {return __x.__in_stream_ == __y.__in_stream_;}
+        -:  778:
+        -:  779:    friend _LIBCPP_INLINE_VISIBILITY
+        -:  780:    bool operator!=(const istream_iterator& __x, const istream_iterator& __y)
+        -:  781:        {return !(__x == __y);}
+        -:  782:};
+        -:  783:
+        -:  784:template <class _Tp, class _CharT = char, class _Traits = char_traits<_CharT> >
+        -:  785:class _LIBCPP_TYPE_VIS_ONLY ostream_iterator
+        -:  786:    : public iterator<output_iterator_tag, void, void, void, void>
+        -:  787:{
+        -:  788:public:
+        -:  789:    typedef _CharT char_type;
+        -:  790:    typedef _Traits traits_type;
+        -:  791:    typedef basic_ostream<_CharT,_Traits> ostream_type;
+        -:  792:private:
+        -:  793:    ostream_type* __out_stream_;
+        -:  794:    const char_type* __delim_;
+        -:  795:public:
+        -:  796:    _LIBCPP_INLINE_VISIBILITY ostream_iterator(ostream_type& __s)
+        -:  797:        : __out_stream_(&__s), __delim_(0) {}
+        -:  798:    _LIBCPP_INLINE_VISIBILITY ostream_iterator(ostream_type& __s, const _CharT* __delimiter)
+        -:  799:        : __out_stream_(&__s), __delim_(__delimiter) {}
+        -:  800:    _LIBCPP_INLINE_VISIBILITY ostream_iterator& operator=(const _Tp& __value_)
+        -:  801:        {
+        -:  802:            *__out_stream_ << __value_;
+        -:  803:            if (__delim_)
+        -:  804:                *__out_stream_ << __delim_;
+        -:  805:            return *this;
+        -:  806:        }
+        -:  807:
+        -:  808:    _LIBCPP_INLINE_VISIBILITY ostream_iterator& operator*()     {return *this;}
+        -:  809:    _LIBCPP_INLINE_VISIBILITY ostream_iterator& operator++()    {return *this;}
+        -:  810:    _LIBCPP_INLINE_VISIBILITY ostream_iterator& operator++(int) {return *this;}
+        -:  811:};
+        -:  812:
+        -:  813:template<class _CharT, class _Traits>
+        -:  814:class _LIBCPP_TYPE_VIS_ONLY istreambuf_iterator
+        -:  815:    : public iterator<input_iterator_tag, _CharT,
+        -:  816:                      typename _Traits::off_type, _CharT*,
+        -:  817:                      _CharT>
+        -:  818:{
+        -:  819:public:
+        -:  820:    typedef _CharT                          char_type;
+        -:  821:    typedef _Traits                         traits_type;
+        -:  822:    typedef typename _Traits::int_type      int_type;
+        -:  823:    typedef basic_streambuf<_CharT,_Traits> streambuf_type;
+        -:  824:    typedef basic_istream<_CharT,_Traits>   istream_type;
+        -:  825:private:
+        -:  826:    mutable streambuf_type* __sbuf_;
+        -:  827:
+        -:  828:    class __proxy
+        -:  829:    {
+        -:  830:        char_type __keep_;
+        -:  831:        streambuf_type* __sbuf_;
+        -:  832:        _LIBCPP_INLINE_VISIBILITY __proxy(char_type __c, streambuf_type* __s)
+        -:  833:            : __keep_(__c), __sbuf_(__s) {}
+        -:  834:        friend class istreambuf_iterator;
+        -:  835:    public:
+        -:  836:        _LIBCPP_INLINE_VISIBILITY char_type operator*() const {return __keep_;}
+        -:  837:    };
+        -:  838:
+        -:  839:    _LIBCPP_INLINE_VISIBILITY
+        -:  840:    bool __test_for_eof() const
+        -:  841:    {
+        -:  842:        if (__sbuf_ && traits_type::eq_int_type(__sbuf_->sgetc(), traits_type::eof()))
+        -:  843:            __sbuf_ = 0;
+        -:  844:        return __sbuf_ == 0;
+        -:  845:    }
+        -:  846:public:
+        -:  847:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR istreambuf_iterator() _NOEXCEPT : __sbuf_(0) {}
+        -:  848:    _LIBCPP_INLINE_VISIBILITY istreambuf_iterator(istream_type& __s) _NOEXCEPT
+        -:  849:        : __sbuf_(__s.rdbuf()) {}
+        -:  850:    _LIBCPP_INLINE_VISIBILITY istreambuf_iterator(streambuf_type* __s) _NOEXCEPT
+        -:  851:        : __sbuf_(__s) {}
+        -:  852:    _LIBCPP_INLINE_VISIBILITY istreambuf_iterator(const __proxy& __p) _NOEXCEPT
+        -:  853:        : __sbuf_(__p.__sbuf_) {}
+        -:  854:
+        -:  855:    _LIBCPP_INLINE_VISIBILITY char_type  operator*() const
+        -:  856:        {return static_cast<char_type>(__sbuf_->sgetc());}
+        -:  857:    _LIBCPP_INLINE_VISIBILITY char_type* operator->() const {return nullptr;}
+        -:  858:    _LIBCPP_INLINE_VISIBILITY istreambuf_iterator& operator++()
+        -:  859:        {
+        -:  860:            __sbuf_->sbumpc();
+        -:  861:            return *this;
+        -:  862:        }
+        -:  863:    _LIBCPP_INLINE_VISIBILITY __proxy              operator++(int)
+        -:  864:        {
+        -:  865:            return __proxy(__sbuf_->sbumpc(), __sbuf_);
+        -:  866:        }
+        -:  867:
+        -:  868:    _LIBCPP_INLINE_VISIBILITY bool equal(const istreambuf_iterator& __b) const
+        -:  869:        {return __test_for_eof() == __b.__test_for_eof();}
+        -:  870:};
+        -:  871:
+        -:  872:template <class _CharT, class _Traits>
+        -:  873:inline _LIBCPP_INLINE_VISIBILITY
+        -:  874:bool operator==(const istreambuf_iterator<_CharT,_Traits>& __a,
+        -:  875:                const istreambuf_iterator<_CharT,_Traits>& __b)
+        -:  876:                {return __a.equal(__b);}
+        -:  877:
+        -:  878:template <class _CharT, class _Traits>
+        -:  879:inline _LIBCPP_INLINE_VISIBILITY
+        -:  880:bool operator!=(const istreambuf_iterator<_CharT,_Traits>& __a,
+        -:  881:                const istreambuf_iterator<_CharT,_Traits>& __b)
+        -:  882:                {return !__a.equal(__b);}
+        -:  883:
+        -:  884:template <class _CharT, class _Traits>
+        -:  885:class _LIBCPP_TYPE_VIS_ONLY ostreambuf_iterator
+        -:  886:    : public iterator<output_iterator_tag, void, void, void, void>
+        -:  887:{
+        -:  888:public:
+        -:  889:    typedef _CharT                          char_type;
+        -:  890:    typedef _Traits                         traits_type;
+        -:  891:    typedef basic_streambuf<_CharT,_Traits> streambuf_type;
+        -:  892:    typedef basic_ostream<_CharT,_Traits>   ostream_type;
+        -:  893:private:
+        -:  894:    streambuf_type* __sbuf_;
+        -:  895:public:
+function _ZNSt3__119ostreambuf_iteratorIcNS_11char_traitsIcEEEC1ERNS_13basic_ostreamIcS2_EE called 0 returned 0% blocks executed 0%
+function _ZNSt3__119ostreambuf_iteratorIcNS_11char_traitsIcEEEC2ERNS_13basic_ostreamIcS2_EE called 0 returned 0% blocks executed 0%
+        -:  896:    _LIBCPP_INLINE_VISIBILITY ostreambuf_iterator(ostream_type& __s) _NOEXCEPT
+    #####:  897:        : __sbuf_(__s.rdbuf()) {}
+branch  0 never executed
+branch  1 never executed
+        -:  898:    _LIBCPP_INLINE_VISIBILITY ostreambuf_iterator(streambuf_type* __s) _NOEXCEPT
+        -:  899:        : __sbuf_(__s) {}
+        -:  900:    _LIBCPP_INLINE_VISIBILITY ostreambuf_iterator& operator=(_CharT __c)
+        -:  901:        {
+        -:  902:            if (__sbuf_ && traits_type::eq_int_type(__sbuf_->sputc(__c), traits_type::eof()))
+        -:  903:                __sbuf_ = 0;
+        -:  904:            return *this;
+        -:  905:        }
+        -:  906:    _LIBCPP_INLINE_VISIBILITY ostreambuf_iterator& operator*()     {return *this;}
+        -:  907:    _LIBCPP_INLINE_VISIBILITY ostreambuf_iterator& operator++()    {return *this;}
+        -:  908:    _LIBCPP_INLINE_VISIBILITY ostreambuf_iterator& operator++(int) {return *this;}
+function _ZNKSt3__119ostreambuf_iteratorIcNS_11char_traitsIcEEE6failedEv called 0 returned 0% blocks executed 0%
+    #####:  909:    _LIBCPP_INLINE_VISIBILITY bool failed() const _NOEXCEPT {return __sbuf_ == 0;}
+        -:  910:
+        -:  911:#if !defined(__APPLE__) || \
+        -:  912:    (defined(__MAC_OS_X_VERSION_MIN_REQUIRED) && __MAC_OS_X_VERSION_MIN_REQUIRED > __MAC_10_8) || \
+        -:  913:    (defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && __IPHONE_OS_VERSION_MIN_REQUIRED > __IPHONE_6_0)
+        -:  914:
+        -:  915:    template <class _Ch, class _Tr>
+        -:  916:    friend
+        -:  917:    _LIBCPP_HIDDEN
+        -:  918:    ostreambuf_iterator<_Ch, _Tr>
+        -:  919:    __pad_and_output(ostreambuf_iterator<_Ch, _Tr> __s,
+        -:  920:                     const _Ch* __ob, const _Ch* __op, const _Ch* __oe,
+        -:  921:                     ios_base& __iob, _Ch __fl);
+        -:  922:#endif
+        -:  923:};
+        -:  924:
+        -:  925:template <class _Iter>
+        -:  926:class _LIBCPP_TYPE_VIS_ONLY move_iterator
+        -:  927:{
+        -:  928:private:
+        -:  929:    _Iter __i;
+        -:  930:public:
+        -:  931:    typedef _Iter                                            iterator_type;
+        -:  932:    typedef typename iterator_traits<iterator_type>::iterator_category iterator_category;
+        -:  933:    typedef typename iterator_traits<iterator_type>::value_type value_type;
+        -:  934:    typedef typename iterator_traits<iterator_type>::difference_type difference_type;
+        -:  935:    typedef typename iterator_traits<iterator_type>::pointer pointer;
+        -:  936:#ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+        -:  937:    typedef value_type&& reference;
+        -:  938:#else
+        -:  939:    typedef typename iterator_traits<iterator_type>::reference reference;
+        -:  940:#endif
+        -:  941:
+        -:  942:    _LIBCPP_INLINE_VISIBILITY move_iterator() : __i() {}
+        -:  943:    _LIBCPP_INLINE_VISIBILITY explicit move_iterator(_Iter __x) : __i(__x) {}
+        -:  944:    template <class _Up> _LIBCPP_INLINE_VISIBILITY move_iterator(const move_iterator<_Up>& __u)
+        -:  945:        : __i(__u.base()) {}
+        -:  946:    _LIBCPP_INLINE_VISIBILITY _Iter base() const {return __i;}
+        -:  947:    _LIBCPP_INLINE_VISIBILITY reference operator*() const {
+        -:  948:      return static_cast<reference>(*__i);
+        -:  949:    }
+        -:  950:    _LIBCPP_INLINE_VISIBILITY pointer  operator->() const {
+        -:  951:      typename iterator_traits<iterator_type>::reference __ref = *__i;
+        -:  952:      return &__ref;
+        -:  953:    }
+        -:  954:    _LIBCPP_INLINE_VISIBILITY move_iterator& operator++() {++__i; return *this;}
+        -:  955:    _LIBCPP_INLINE_VISIBILITY move_iterator  operator++(int)
+        -:  956:        {move_iterator __tmp(*this); ++__i; return __tmp;}
+        -:  957:    _LIBCPP_INLINE_VISIBILITY move_iterator& operator--() {--__i; return *this;}
+        -:  958:    _LIBCPP_INLINE_VISIBILITY move_iterator  operator--(int)
+        -:  959:        {move_iterator __tmp(*this); --__i; return __tmp;}
+        -:  960:    _LIBCPP_INLINE_VISIBILITY move_iterator  operator+ (difference_type __n) const
+        -:  961:        {return move_iterator(__i + __n);}
+        -:  962:    _LIBCPP_INLINE_VISIBILITY move_iterator& operator+=(difference_type __n)
+        -:  963:        {__i += __n; return *this;}
+        -:  964:    _LIBCPP_INLINE_VISIBILITY move_iterator  operator- (difference_type __n) const
+        -:  965:        {return move_iterator(__i - __n);}
+        -:  966:    _LIBCPP_INLINE_VISIBILITY move_iterator& operator-=(difference_type __n)
+        -:  967:        {__i -= __n; return *this;}
+        -:  968:    _LIBCPP_INLINE_VISIBILITY reference         operator[](difference_type __n) const
+        -:  969:    {
+        -:  970:      return static_cast<reference>(__i[__n]);
+        -:  971:    }
+        -:  972:};
+        -:  973:
+        -:  974:template <class _Iter1, class _Iter2>
+        -:  975:inline _LIBCPP_INLINE_VISIBILITY
+        -:  976:bool
+        -:  977:operator==(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+        -:  978:{
+        -:  979:    return __x.base() == __y.base();
+        -:  980:}
+        -:  981:
+        -:  982:template <class _Iter1, class _Iter2>
+        -:  983:inline _LIBCPP_INLINE_VISIBILITY
+        -:  984:bool
+        -:  985:operator<(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+        -:  986:{
+        -:  987:    return __x.base() < __y.base();
+        -:  988:}
+        -:  989:
+        -:  990:template <class _Iter1, class _Iter2>
+        -:  991:inline _LIBCPP_INLINE_VISIBILITY
+        -:  992:bool
+        -:  993:operator!=(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+        -:  994:{
+        -:  995:    return __x.base() != __y.base();
+        -:  996:}
+        -:  997:
+        -:  998:template <class _Iter1, class _Iter2>
+        -:  999:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1000:bool
+        -: 1001:operator>(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+        -: 1002:{
+        -: 1003:    return __x.base() > __y.base();
+        -: 1004:}
+        -: 1005:
+        -: 1006:template <class _Iter1, class _Iter2>
+        -: 1007:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1008:bool
+        -: 1009:operator>=(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+        -: 1010:{
+        -: 1011:    return __x.base() >= __y.base();
+        -: 1012:}
+        -: 1013:
+        -: 1014:template <class _Iter1, class _Iter2>
+        -: 1015:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1016:bool
+        -: 1017:operator<=(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+        -: 1018:{
+        -: 1019:    return __x.base() <= __y.base();
+        -: 1020:}
+        -: 1021:
+        -: 1022:template <class _Iter1, class _Iter2>
+        -: 1023:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1024:typename move_iterator<_Iter1>::difference_type
+        -: 1025:operator-(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+        -: 1026:{
+        -: 1027:    return __x.base() - __y.base();
+        -: 1028:}
+        -: 1029:
+        -: 1030:template <class _Iter>
+        -: 1031:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1032:move_iterator<_Iter>
+        -: 1033:operator+(typename move_iterator<_Iter>::difference_type __n, const move_iterator<_Iter>& __x)
+        -: 1034:{
+        -: 1035:    return move_iterator<_Iter>(__x.base() + __n);
+        -: 1036:}
+        -: 1037:
+        -: 1038:template <class _Iter>
+        -: 1039:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1040:move_iterator<_Iter>
+        -: 1041:make_move_iterator(_Iter __i)
+        -: 1042:{
+        -: 1043:    return move_iterator<_Iter>(__i);
+        -: 1044:}
+        -: 1045:
+        -: 1046:// __wrap_iter
+        -: 1047:
+        -: 1048:template <class _Iter> class __wrap_iter;
+        -: 1049:
+        -: 1050:template <class _Iter1, class _Iter2>
+        -: 1051:_LIBCPP_INLINE_VISIBILITY
+        -: 1052:bool
+        -: 1053:operator==(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT;
+        -: 1054:
+        -: 1055:template <class _Iter1, class _Iter2>
+        -: 1056:_LIBCPP_INLINE_VISIBILITY
+        -: 1057:bool
+        -: 1058:operator<(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT;
+        -: 1059:
+        -: 1060:template <class _Iter1, class _Iter2>
+        -: 1061:_LIBCPP_INLINE_VISIBILITY
+        -: 1062:bool
+        -: 1063:operator!=(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT;
+        -: 1064:
+        -: 1065:template <class _Iter1, class _Iter2>
+        -: 1066:_LIBCPP_INLINE_VISIBILITY
+        -: 1067:bool
+        -: 1068:operator>(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT;
+        -: 1069:
+        -: 1070:template <class _Iter1, class _Iter2>
+        -: 1071:_LIBCPP_INLINE_VISIBILITY
+        -: 1072:bool
+        -: 1073:operator>=(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT;
+        -: 1074:
+        -: 1075:template <class _Iter1, class _Iter2>
+        -: 1076:_LIBCPP_INLINE_VISIBILITY
+        -: 1077:bool
+        -: 1078:operator<=(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT;
+        -: 1079:
+        -: 1080:template <class _Iter1, class _Iter2>
+        -: 1081:_LIBCPP_INLINE_VISIBILITY
+        -: 1082:typename __wrap_iter<_Iter1>::difference_type
+        -: 1083:operator-(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT;
+        -: 1084:
+        -: 1085:template <class _Iter>
+        -: 1086:_LIBCPP_INLINE_VISIBILITY
+        -: 1087:__wrap_iter<_Iter>
+        -: 1088:operator+(typename __wrap_iter<_Iter>::difference_type, __wrap_iter<_Iter>) _NOEXCEPT;
+        -: 1089:
+        -: 1090:template <class _Ip, class _Op> _Op _LIBCPP_INLINE_VISIBILITY copy(_Ip, _Ip, _Op);
+        -: 1091:template <class _B1, class _B2> _B2 _LIBCPP_INLINE_VISIBILITY copy_backward(_B1, _B1, _B2);
+        -: 1092:template <class _Ip, class _Op> _Op _LIBCPP_INLINE_VISIBILITY move(_Ip, _Ip, _Op);
+        -: 1093:template <class _B1, class _B2> _B2 _LIBCPP_INLINE_VISIBILITY move_backward(_B1, _B1, _B2);
+        -: 1094:
+        -: 1095:template <class _Tp>
+        -: 1096:_LIBCPP_INLINE_VISIBILITY
+        -: 1097:typename enable_if
+        -: 1098:<
+        -: 1099:    is_trivially_copy_assignable<_Tp>::value,
+        -: 1100:    _Tp*
+        -: 1101:>::type
+        -: 1102:__unwrap_iter(__wrap_iter<_Tp*>);
+        -: 1103:
+        -: 1104:template <class _Iter>
+        -: 1105:class __wrap_iter
+        -: 1106:{
+        -: 1107:public:
+        -: 1108:    typedef _Iter                                                      iterator_type;
+        -: 1109:    typedef typename iterator_traits<iterator_type>::iterator_category iterator_category;
+        -: 1110:    typedef typename iterator_traits<iterator_type>::value_type        value_type;
+        -: 1111:    typedef typename iterator_traits<iterator_type>::difference_type   difference_type;
+        -: 1112:    typedef typename iterator_traits<iterator_type>::pointer           pointer;
+        -: 1113:    typedef typename iterator_traits<iterator_type>::reference         reference;
+        -: 1114:private:
+        -: 1115:    iterator_type __i;
+        -: 1116:public:
+        -: 1117:    _LIBCPP_INLINE_VISIBILITY __wrap_iter() _NOEXCEPT
+        -: 1118:#if _LIBCPP_STD_VER > 11
+        -: 1119:                : __i{}
+        -: 1120:#endif
+        -: 1121:    {
+        -: 1122:#if _LIBCPP_DEBUG_LEVEL >= 2
+        -: 1123:        __get_db()->__insert_i(this);
+        -: 1124:#endif
+        -: 1125:    }
+        -: 1126:    template <class _Up> _LIBCPP_INLINE_VISIBILITY __wrap_iter(const __wrap_iter<_Up>& __u,
+        -: 1127:        typename enable_if<is_convertible<_Up, iterator_type>::value>::type* = 0) _NOEXCEPT
+        -: 1128:        : __i(__u.base())
+        -: 1129:    {
+        -: 1130:#if _LIBCPP_DEBUG_LEVEL >= 2
+        -: 1131:        __get_db()->__iterator_copy(this, &__u);
+        -: 1132:#endif
+        -: 1133:    }
+        -: 1134:#if _LIBCPP_DEBUG_LEVEL >= 2
+        -: 1135:    _LIBCPP_INLINE_VISIBILITY
+        -: 1136:    __wrap_iter(const __wrap_iter& __x)
+        -: 1137:        : __i(__x.base())
+        -: 1138:    {
+        -: 1139:        __get_db()->__iterator_copy(this, &__x);
+        -: 1140:    }
+        -: 1141:    _LIBCPP_INLINE_VISIBILITY
+        -: 1142:    __wrap_iter& operator=(const __wrap_iter& __x)
+        -: 1143:    {
+        -: 1144:        if (this != &__x)
+        -: 1145:        {
+        -: 1146:            __get_db()->__iterator_copy(this, &__x);
+        -: 1147:            __i = __x.__i;
+        -: 1148:        }
+        -: 1149:        return *this;
+        -: 1150:    }
+        -: 1151:    _LIBCPP_INLINE_VISIBILITY
+        -: 1152:    ~__wrap_iter()
+        -: 1153:    {
+        -: 1154:        __get_db()->__erase_i(this);
+        -: 1155:    }
+        -: 1156:#endif
+        -: 1157:    _LIBCPP_INLINE_VISIBILITY reference operator*() const _NOEXCEPT
+        -: 1158:    {
+        -: 1159:#if _LIBCPP_DEBUG_LEVEL >= 2
+        -: 1160:        _LIBCPP_ASSERT(__get_const_db()->__dereferenceable(this),
+        -: 1161:                       "Attempted to dereference a non-dereferenceable iterator");
+        -: 1162:#endif
+        -: 1163:        return *__i;
+        -: 1164:    }
+        -: 1165:    _LIBCPP_INLINE_VISIBILITY pointer  operator->() const _NOEXCEPT
+        -: 1166:    {
+        -: 1167:#if _LIBCPP_DEBUG_LEVEL >= 2
+        -: 1168:        _LIBCPP_ASSERT(__get_const_db()->__dereferenceable(this),
+        -: 1169:                       "Attempted to dereference a non-dereferenceable iterator");
+        -: 1170:#endif
+        -: 1171:        return (pointer)&reinterpret_cast<const volatile char&>(*__i);
+        -: 1172:    }
+        -: 1173:    _LIBCPP_INLINE_VISIBILITY __wrap_iter& operator++() _NOEXCEPT
+        -: 1174:    {
+        -: 1175:#if _LIBCPP_DEBUG_LEVEL >= 2
+        -: 1176:        _LIBCPP_ASSERT(__get_const_db()->__dereferenceable(this),
+        -: 1177:                       "Attempted to increment non-incrementable iterator");
+        -: 1178:#endif
+        -: 1179:        ++__i;
+        -: 1180:        return *this;
+        -: 1181:    }
+        -: 1182:    _LIBCPP_INLINE_VISIBILITY __wrap_iter  operator++(int) _NOEXCEPT
+        -: 1183:        {__wrap_iter __tmp(*this); ++(*this); return __tmp;}
+        -: 1184:    _LIBCPP_INLINE_VISIBILITY __wrap_iter& operator--() _NOEXCEPT
+        -: 1185:    {
+        -: 1186:#if _LIBCPP_DEBUG_LEVEL >= 2
+        -: 1187:        _LIBCPP_ASSERT(__get_const_db()->__decrementable(this),
+        -: 1188:                       "Attempted to decrement non-decrementable iterator");
+        -: 1189:#endif
+        -: 1190:        --__i;
+        -: 1191:        return *this;
+        -: 1192:    }
+        -: 1193:    _LIBCPP_INLINE_VISIBILITY __wrap_iter  operator--(int) _NOEXCEPT
+        -: 1194:        {__wrap_iter __tmp(*this); --(*this); return __tmp;}
+        -: 1195:    _LIBCPP_INLINE_VISIBILITY __wrap_iter  operator+ (difference_type __n) const _NOEXCEPT
+        -: 1196:        {__wrap_iter __w(*this); __w += __n; return __w;}
+        -: 1197:    _LIBCPP_INLINE_VISIBILITY __wrap_iter& operator+=(difference_type __n) _NOEXCEPT
+        -: 1198:    {
+        -: 1199:#if _LIBCPP_DEBUG_LEVEL >= 2
+        -: 1200:        _LIBCPP_ASSERT(__get_const_db()->__addable(this, __n),
+        -: 1201:                   "Attempted to add/subtract iterator outside of valid range");
+        -: 1202:#endif
+        -: 1203:        __i += __n;
+        -: 1204:        return *this;
+        -: 1205:    }
+        -: 1206:    _LIBCPP_INLINE_VISIBILITY __wrap_iter  operator- (difference_type __n) const _NOEXCEPT
+        -: 1207:        {return *this + (-__n);}
+        -: 1208:    _LIBCPP_INLINE_VISIBILITY __wrap_iter& operator-=(difference_type __n) _NOEXCEPT
+        -: 1209:        {*this += -__n; return *this;}
+        -: 1210:    _LIBCPP_INLINE_VISIBILITY reference        operator[](difference_type __n) const _NOEXCEPT
+        -: 1211:    {
+        -: 1212:#if _LIBCPP_DEBUG_LEVEL >= 2
+        -: 1213:        _LIBCPP_ASSERT(__get_const_db()->__subscriptable(this, __n),
+        -: 1214:                   "Attempted to subscript iterator outside of valid range");
+        -: 1215:#endif
+        -: 1216:        return __i[__n];
+        -: 1217:    }
+        -: 1218:
+        -: 1219:    _LIBCPP_INLINE_VISIBILITY iterator_type base() const _NOEXCEPT {return __i;}
+        -: 1220:
+        -: 1221:private:
+        -: 1222:#if _LIBCPP_DEBUG_LEVEL >= 2
+        -: 1223:    _LIBCPP_INLINE_VISIBILITY __wrap_iter(const void* __p, iterator_type __x) : __i(__x)
+        -: 1224:    {
+        -: 1225:        __get_db()->__insert_ic(this, __p);
+        -: 1226:    }
+        -: 1227:#else
+        -: 1228:    _LIBCPP_INLINE_VISIBILITY __wrap_iter(iterator_type __x) _NOEXCEPT : __i(__x) {}
+        -: 1229:#endif
+        -: 1230:
+        -: 1231:    template <class _Up> friend class __wrap_iter;
+        -: 1232:    template <class _CharT, class _Traits, class _Alloc> friend class basic_string;
+        -: 1233:    template <class _Tp, class _Alloc> friend class vector;
+        -: 1234:
+        -: 1235:    template <class _Iter1, class _Iter2>
+        -: 1236:    friend
+        -: 1237:    bool
+        -: 1238:    operator==(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT;
+        -: 1239:
+        -: 1240:    template <class _Iter1, class _Iter2>
+        -: 1241:    friend
+        -: 1242:    bool
+        -: 1243:    operator<(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT;
+        -: 1244:
+        -: 1245:    template <class _Iter1, class _Iter2>
+        -: 1246:    friend
+        -: 1247:    bool
+        -: 1248:    operator!=(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT;
+        -: 1249:
+        -: 1250:    template <class _Iter1, class _Iter2>
+        -: 1251:    friend
+        -: 1252:    bool
+        -: 1253:    operator>(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT;
+        -: 1254:
+        -: 1255:    template <class _Iter1, class _Iter2>
+        -: 1256:    friend
+        -: 1257:    bool
+        -: 1258:    operator>=(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT;
+        -: 1259:
+        -: 1260:    template <class _Iter1, class _Iter2>
+        -: 1261:    friend
+        -: 1262:    bool
+        -: 1263:    operator<=(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT;
+        -: 1264:
+        -: 1265:    template <class _Iter1, class _Iter2>
+        -: 1266:    friend
+        -: 1267:    typename __wrap_iter<_Iter1>::difference_type
+        -: 1268:    operator-(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT;
+        -: 1269:
+        -: 1270:    template <class _Iter1>
+        -: 1271:    friend
+        -: 1272:    __wrap_iter<_Iter1>
+        -: 1273:    operator+(typename __wrap_iter<_Iter1>::difference_type, __wrap_iter<_Iter1>) _NOEXCEPT;
+        -: 1274:
+        -: 1275:    template <class _Ip, class _Op> friend _Op copy(_Ip, _Ip, _Op);
+        -: 1276:    template <class _B1, class _B2> friend _B2 copy_backward(_B1, _B1, _B2);
+        -: 1277:    template <class _Ip, class _Op> friend _Op move(_Ip, _Ip, _Op);
+        -: 1278:    template <class _B1, class _B2> friend _B2 move_backward(_B1, _B1, _B2);
+        -: 1279:
+        -: 1280:    template <class _Tp>
+        -: 1281:    friend
+        -: 1282:    typename enable_if
+        -: 1283:    <
+        -: 1284:        is_trivially_copy_assignable<_Tp>::value,
+        -: 1285:        _Tp*
+        -: 1286:    >::type
+        -: 1287:    __unwrap_iter(__wrap_iter<_Tp*>);
+        -: 1288:};
+        -: 1289:
+        -: 1290:template <class _Iter1, class _Iter2>
+        -: 1291:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1292:bool
+        -: 1293:operator==(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter2>& __y) _NOEXCEPT
+        -: 1294:{
+        -: 1295:    return __x.base() == __y.base();
+        -: 1296:}
+        -: 1297:
+        -: 1298:template <class _Iter1, class _Iter2>
+        -: 1299:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1300:bool
+        -: 1301:operator<(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter2>& __y) _NOEXCEPT
+        -: 1302:{
+        -: 1303:#if _LIBCPP_DEBUG_LEVEL >= 2
+        -: 1304:    _LIBCPP_ASSERT(__get_const_db()->__less_than_comparable(&__x, &__y),
+        -: 1305:                   "Attempted to compare incomparable iterators");
+        -: 1306:#endif
+        -: 1307:    return __x.base() < __y.base();
+        -: 1308:}
+        -: 1309:
+        -: 1310:template <class _Iter1, class _Iter2>
+        -: 1311:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1312:bool
+        -: 1313:operator!=(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter2>& __y) _NOEXCEPT
+        -: 1314:{
+        -: 1315:    return !(__x == __y);
+        -: 1316:}
+        -: 1317:
+        -: 1318:template <class _Iter1, class _Iter2>
+        -: 1319:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1320:bool
+        -: 1321:operator>(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter2>& __y) _NOEXCEPT
+        -: 1322:{
+        -: 1323:    return __y < __x;
+        -: 1324:}
+        -: 1325:
+        -: 1326:template <class _Iter1, class _Iter2>
+        -: 1327:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1328:bool
+        -: 1329:operator>=(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter2>& __y) _NOEXCEPT
+        -: 1330:{
+        -: 1331:    return !(__x < __y);
+        -: 1332:}
+        -: 1333:
+        -: 1334:template <class _Iter1, class _Iter2>
+        -: 1335:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1336:bool
+        -: 1337:operator<=(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter2>& __y) _NOEXCEPT
+        -: 1338:{
+        -: 1339:    return !(__y < __x);
+        -: 1340:}
+        -: 1341:
+        -: 1342:template <class _Iter1>
+        -: 1343:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1344:bool
+        -: 1345:operator!=(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter1>& __y) _NOEXCEPT
+        -: 1346:{
+        -: 1347:    return !(__x == __y);
+        -: 1348:}
+        -: 1349:
+        -: 1350:template <class _Iter1>
+        -: 1351:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1352:bool
+        -: 1353:operator>(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter1>& __y) _NOEXCEPT
+        -: 1354:{
+        -: 1355:    return __y < __x;
+        -: 1356:}
+        -: 1357:
+        -: 1358:template <class _Iter1>
+        -: 1359:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1360:bool
+        -: 1361:operator>=(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter1>& __y) _NOEXCEPT
+        -: 1362:{
+        -: 1363:    return !(__x < __y);
+        -: 1364:}
+        -: 1365:
+        -: 1366:template <class _Iter1>
+        -: 1367:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1368:bool
+        -: 1369:operator<=(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter1>& __y) _NOEXCEPT
+        -: 1370:{
+        -: 1371:    return !(__y < __x);
+        -: 1372:}
+        -: 1373:
+        -: 1374:template <class _Iter1, class _Iter2>
+        -: 1375:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1376:typename __wrap_iter<_Iter1>::difference_type
+        -: 1377:operator-(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter2>& __y) _NOEXCEPT
+        -: 1378:{
+        -: 1379:#if _LIBCPP_DEBUG_LEVEL >= 2
+        -: 1380:    _LIBCPP_ASSERT(__get_const_db()->__less_than_comparable(&__x, &__y),
+        -: 1381:                   "Attempted to subtract incompatible iterators");
+        -: 1382:#endif
+        -: 1383:    return __x.base() - __y.base();
+        -: 1384:}
+        -: 1385:
+        -: 1386:template <class _Iter>
+        -: 1387:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1388:__wrap_iter<_Iter>
+        -: 1389:operator+(typename __wrap_iter<_Iter>::difference_type __n,
+        -: 1390:          __wrap_iter<_Iter> __x) _NOEXCEPT
+        -: 1391:{
+        -: 1392:    __x += __n;
+        -: 1393:    return __x;
+        -: 1394:}
+        -: 1395:
+        -: 1396:template <class _Tp, size_t _Np>
+        -: 1397:inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+        -: 1398:_Tp*
+        -: 1399:begin(_Tp (&__array)[_Np])
+        -: 1400:{
+        -: 1401:    return __array;
+        -: 1402:}
+        -: 1403:
+        -: 1404:template <class _Tp, size_t _Np>
+        -: 1405:inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+        -: 1406:_Tp*
+        -: 1407:end(_Tp (&__array)[_Np])
+        -: 1408:{
+        -: 1409:    return __array + _Np;
+        -: 1410:}
+        -: 1411:
+        -: 1412:#if !defined(_LIBCPP_HAS_NO_RVALUE_REFERENCES) && !defined(_LIBCPP_HAS_NO_TRAILING_RETURN)
+        -: 1413:
+        -: 1414:template <class _Cp>
+        -: 1415:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1416:auto
+        -: 1417:begin(_Cp& __c) -> decltype(__c.begin())
+        -: 1418:{
+        -: 1419:    return __c.begin();
+        -: 1420:}
+        -: 1421:
+        -: 1422:template <class _Cp>
+        -: 1423:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1424:auto
+        -: 1425:begin(const _Cp& __c) -> decltype(__c.begin())
+        -: 1426:{
+        -: 1427:    return __c.begin();
+        -: 1428:}
+        -: 1429:
+        -: 1430:template <class _Cp>
+        -: 1431:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1432:auto
+        -: 1433:end(_Cp& __c) -> decltype(__c.end())
+        -: 1434:{
+        -: 1435:    return __c.end();
+        -: 1436:}
+        -: 1437:
+        -: 1438:template <class _Cp>
+        -: 1439:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1440:auto
+        -: 1441:end(const _Cp& __c) -> decltype(__c.end())
+        -: 1442:{
+        -: 1443:    return __c.end();
+        -: 1444:}
+        -: 1445:
+        -: 1446:#if _LIBCPP_STD_VER > 11
+        -: 1447:
+        -: 1448:template <class _Tp, size_t _Np>
+        -: 1449:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1450:reverse_iterator<_Tp*> rbegin(_Tp (&__array)[_Np])
+        -: 1451:{
+        -: 1452:    return reverse_iterator<_Tp*>(__array + _Np);
+        -: 1453:}
+        -: 1454:
+        -: 1455:template <class _Tp, size_t _Np>
+        -: 1456:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1457:reverse_iterator<_Tp*> rend(_Tp (&__array)[_Np])
+        -: 1458:{
+        -: 1459:    return reverse_iterator<_Tp*>(__array);
+        -: 1460:}
+        -: 1461:
+        -: 1462:template <class _Ep>
+        -: 1463:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1464:reverse_iterator<const _Ep*> rbegin(initializer_list<_Ep> __il)
+        -: 1465:{
+        -: 1466:    return reverse_iterator<const _Ep*>(__il.end());
+        -: 1467:}
+        -: 1468:
+        -: 1469:template <class _Ep>
+        -: 1470:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1471:reverse_iterator<const _Ep*> rend(initializer_list<_Ep> __il)
+        -: 1472:{
+        -: 1473:    return reverse_iterator<const _Ep*>(__il.begin());
+        -: 1474:}
+        -: 1475:
+        -: 1476:template <class _Cp>
+        -: 1477:inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+        -: 1478:auto cbegin(const _Cp& __c) -> decltype(begin(__c))
+        -: 1479:{
+        -: 1480:    return begin(__c);
+        -: 1481:}
+        -: 1482:
+        -: 1483:template <class _Cp>
+        -: 1484:inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+        -: 1485:auto cend(const _Cp& __c) -> decltype(end(__c))
+        -: 1486:{
+        -: 1487:    return end(__c);
+        -: 1488:}
+        -: 1489:
+        -: 1490:template <class _Cp>
+        -: 1491:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1492:auto rbegin(_Cp& __c) -> decltype(__c.rbegin())
+        -: 1493:{
+        -: 1494:    return __c.rbegin();
+        -: 1495:}
+        -: 1496:
+        -: 1497:template <class _Cp>
+        -: 1498:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1499:auto rbegin(const _Cp& __c) -> decltype(__c.rbegin())
+        -: 1500:{
+        -: 1501:    return __c.rbegin();
+        -: 1502:}
+        -: 1503:
+        -: 1504:template <class _Cp>
+        -: 1505:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1506:auto rend(_Cp& __c) -> decltype(__c.rend())
+        -: 1507:{
+        -: 1508:    return __c.rend();
+        -: 1509:}
+        -: 1510:
+        -: 1511:template <class _Cp>
+        -: 1512:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1513:auto rend(const _Cp& __c) -> decltype(__c.rend())
+        -: 1514:{
+        -: 1515:    return __c.rend();
+        -: 1516:}
+        -: 1517:
+        -: 1518:template <class _Cp>
+        -: 1519:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1520:auto crbegin(const _Cp& __c) -> decltype(rbegin(__c))
+        -: 1521:{
+        -: 1522:    return rbegin(__c);
+        -: 1523:}
+        -: 1524:
+        -: 1525:template <class _Cp>
+        -: 1526:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1527:auto crend(const _Cp& __c) -> decltype(rend(__c))
+        -: 1528:{
+        -: 1529:    return rend(__c);
+        -: 1530:}
+        -: 1531:
+        -: 1532:#endif
+        -: 1533:
+        -: 1534:
+        -: 1535:#else  // !defined(_LIBCPP_HAS_NO_RVALUE_REFERENCES) && !defined(_LIBCPP_HAS_NO_TRAILING_RETURN)
+        -: 1536:
+        -: 1537:template <class _Cp>
+        -: 1538:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1539:typename _Cp::iterator
+        -: 1540:begin(_Cp& __c)
+        -: 1541:{
+        -: 1542:    return __c.begin();
+        -: 1543:}
+        -: 1544:
+        -: 1545:template <class _Cp>
+        -: 1546:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1547:typename _Cp::const_iterator
+        -: 1548:begin(const _Cp& __c)
+        -: 1549:{
+        -: 1550:    return __c.begin();
+        -: 1551:}
+        -: 1552:
+        -: 1553:template <class _Cp>
+        -: 1554:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1555:typename _Cp::iterator
+        -: 1556:end(_Cp& __c)
+        -: 1557:{
+        -: 1558:    return __c.end();
+        -: 1559:}
+        -: 1560:
+        -: 1561:template <class _Cp>
+        -: 1562:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1563:typename _Cp::const_iterator
+        -: 1564:end(const _Cp& __c)
+        -: 1565:{
+        -: 1566:    return __c.end();
+        -: 1567:}
+        -: 1568:
+        -: 1569:#endif  // !defined(_LIBCPP_HAS_NO_RVALUE_REFERENCES) && !defined(_LIBCPP_HAS_NO_TRAILING_RETURN)
+        -: 1570:
+        -: 1571:_LIBCPP_END_NAMESPACE_STD
+        -: 1572:
+        -: 1573:#endif  // _LIBCPP_ITERATOR

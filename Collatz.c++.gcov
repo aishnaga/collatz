@@ -1,0 +1,116 @@
+        -:    0:Source:Collatz.c++
+        -:    0:Graph:Collatz.gcno
+        -:    0:Data:Collatz.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:// ----------------------------
+        -:    2:// projects/collatz/Collatz.c++
+        -:    3:// Copyright (C) 2015
+        -:    4:// Glenn P. Downing
+        -:    5:// ----------------------------
+        -:    6:
+        -:    7:// --------
+        -:    8:// includes
+        -:    9:// --------
+        -:   10:
+        -:   11:#include <cassert>  // assert
+        -:   12:#include <iostream> // endl, istream, ostream
+        -:   13:#include <sstream>  // istringstream
+        -:   14:#include <string>   // getline, string
+        -:   15:#include <utility>  // make_pair, pair
+        -:   16:
+        -:   17:#include "Collatz.h"
+        -:   18:
+        -:   19:using namespace std;
+        -:   20:
+        -:   21:// ------------
+        -:   22:// collatz_read
+        -:   23:// ------------
+        -:   24:
+function _Z12collatz_readRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE called 11 returned 100% blocks executed 71%
+        -:   25:pair<int, int> collatz_read (const string& s) {
+       11:   26:    istringstream sin(s);
+        -:   27:    int i;
+        -:   28:    int j;
+       22:   29:    sin >> i >> j;
+branch  0 taken 100%
+branch  1 taken 0%
+branch  2 taken 100%
+branch  3 taken 0%
+       22:   30:    return make_pair(i, j);}
+branch  0 taken 100%
+branch  1 taken 0%
+        -:   31:
+        -:   32:// ------------
+        -:   33:// collatz_eval
+        -:   34:// ------------
+        -:   35:
+function _Z12collatz_evalii called 16 returned 100% blocks executed 100%
+        -:   36:int collatz_eval (int i, int j) {
+        -:   37:    // <your code>
+        -:   38:    // define val of max length
+       16:   39:    int max_length = 1;
+        -:   40:    // check all numners between i and j
+     5376:   41:    for (int k = i; k <=j; ++k) {
+branch  0 taken 99%
+branch  1 taken 1%
+     2672:   42:        int length = 1;
+     2672:   43:        int val = k;
+        -:   44:        // compute sequence length
+   466544:   45:        while (val > 1) {
+branch  0 taken 99%
+branch  1 taken 1%
+   230600:   46:            if (( val % 2) == 0) {
+branch  0 taken 67%
+branch  1 taken 33%
+   153985:   47:                val = val/2;
+   153985:   48:            }
+        -:   49:            else {
+    76615:   50:                val = val * 3 + 1;
+        -:   51:            }
+   230600:   52:            ++length;
+        -:   53:        }
+        -:   54:        // now check if length is greater than max_length
+        -:   55:        // if so, update value of max_length
+     2672:   56:        if (length > max_length) {
+branch  0 taken 3%
+branch  1 taken 97%
+       73:   57:            max_length = length;
+       73:   58:        }
+     2672:   59:    }
+       16:   60:    return max_length;
+        -:   61:}
+        -:   62:
+        -:   63:// -------------
+        -:   64:// collatz_print
+        -:   65:// -------------
+        -:   66:
+function _Z13collatz_printRNSt3__113basic_ostreamIcNS_11char_traitsIcEEEEiii called 11 returned 100% blocks executed 100%
+        -:   67:void collatz_print (ostream& w, int i, int j, int v) {
+       11:   68:    w << i << " " << j << " " << v << endl;}
+        -:   69:
+        -:   70:// -------------
+        -:   71:// collatz_solve
+        -:   72:// -------------
+        -:   73:
+function _Z13collatz_solveRNSt3__113basic_istreamIcNS_11char_traitsIcEEEERNS_13basic_ostreamIcS2_EE called 2 returned 100% blocks executed 83%
+        -:   74:void collatz_solve (istream& r, ostream& w) {
+        2:   75:    string s;
+       48:   76:    while (getline(r, s)) {
+branch  0 taken 100%
+branch  1 taken 0%
+branch  2 taken 100%
+branch  3 taken 0%
+branch  4 taken 83%
+branch  5 taken 17%
+       20:   77:        const pair<int, int> p = collatz_read(s);
+branch  0 taken 100%
+branch  1 taken 0%
+       10:   78:        const int            i = p.first;
+       10:   79:        const int            j = p.second;
+       20:   80:        const int            v = collatz_eval(i, j);
+branch  0 taken 100%
+branch  1 taken 0%
+       12:   81:        collatz_print(w, i, j, v);}}
+branch  0 taken 100%
+branch  1 taken 0%
