@@ -89,6 +89,13 @@ RunCollatz.tmp: RunCollatz
 	./RunCollatz < RunCollatz.in > RunCollatz.tmp
 	diff RunCollatz.tmp RunCollatz.out
 
+CollatzTest: Collatz.h CollatzTest.c++
+	$(CXX) $(CXXFLAGS) $(GCOVFLAGS) CollatzTest.c++ -o CollatzTest
+
+CollatzTest.tmp: CollatzTest
+	./CollatzTest < RunCollatz.in > RunCollatz.tmp
+	diff RunCollatz.tmp RunCollatz.out
+
 TestCollatz: Collatz.h Collatz.c++ TestCollatz.c++
 	$(CXX) $(CXXFLAGS) $(GCOVFLAGS) Collatz.c++ TestCollatz.c++ -o TestCollatz $(LDFLAGS)
 
