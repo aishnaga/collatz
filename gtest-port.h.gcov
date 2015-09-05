@@ -897,11 +897,11 @@
         -:  892:  typedef T element_type;
         -:  893:
         -:  894:  explicit scoped_ptr(T* p = NULL) : ptr_(p) {}
-function _ZN7testing8internal10scoped_ptrINSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEED1Ev called 10 returned 100% blocks executed 100%
-function _ZN7testing8internal10scoped_ptrINSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEED2Ev called 10 returned 100% blocks executed 75%
+function _ZN7testing8internal10scoped_ptrINSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEED1Ev called 11 returned 100% blocks executed 100%
+function _ZN7testing8internal10scoped_ptrINSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEED2Ev called 11 returned 100% blocks executed 75%
 function _ZN7testing8internal10scoped_ptrINSt3__118basic_stringstreamIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEED1Ev called 0 returned 0% blocks executed 0%
 function _ZN7testing8internal10scoped_ptrINSt3__118basic_stringstreamIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEED2Ev called 0 returned 0% blocks executed 0%
-       30:  895:  ~scoped_ptr() { reset(); }
+       33:  895:  ~scoped_ptr() { reset(); }
 branch  0 taken 100%
 branch  1 taken 0%
 branch  2 never executed
@@ -919,10 +919,10 @@ function _ZNK7testing8internal10scoped_ptrINSt3__112basic_stringIcNS2_11char_tra
         -:  904:    return ptr;
         -:  905:  }
         -:  906:
-function _ZN7testing8internal10scoped_ptrINSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEE5resetEPS8_ called 10 returned 100% blocks executed 37%
+function _ZN7testing8internal10scoped_ptrINSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEE5resetEPS8_ called 11 returned 100% blocks executed 37%
 function _ZN7testing8internal10scoped_ptrINSt3__118basic_stringstreamIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEE5resetEPS8_ called 0 returned 0% blocks executed 0%
         -:  907:  void reset(T* p = NULL) {
-       10:  908:    if (p != ptr_) {
+       11:  908:    if (p != ptr_) {
 branch  0 taken 0%
 branch  1 taken 100%
 branch  2 never executed
@@ -940,7 +940,7 @@ branch  3 never executed
     #####:  911:      }
     #####:  912:      ptr_ = p;
     #####:  913:    }
-       10:  914:  }
+       11:  914:  }
         -:  915:
         -:  916: private:
         -:  917:  T* ptr_;

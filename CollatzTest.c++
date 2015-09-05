@@ -88,9 +88,17 @@ pair<int, int> collatz_read (const string& s) {
 
 int collatz_eval (int i, int j) {
     // <your code>
-    // define val of max length
+    // define max length=1 in case input is 1
     int max_length = 1;
-    // check all numners between i and j
+    
+    // if i is greater than j, swap them
+    if (i > j) {
+        int temp = j;
+        j = i;
+        i = temp;
+    }
+    
+    // check all numbers between i and j
     for (int k = i; k <=j; ++k) {
         int length = 1;
         int val = k;

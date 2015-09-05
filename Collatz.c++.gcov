@@ -45,72 +45,82 @@ branch  1 taken 0%
         -:   33:// collatz_eval
         -:   34:// ------------
         -:   35:
-function _Z12collatz_evalii called 16 returned 100% blocks executed 100%
+function _Z12collatz_evalii called 17 returned 100% blocks executed 100%
         -:   36:int collatz_eval (int i, int j) {
         -:   37:    // <your code>
-        -:   38:    // define val of max length
-       16:   39:    int max_length = 1;
-        -:   40:    // check all numners between i and j
-     5376:   41:    for (int k = i; k <=j; ++k) {
+        -:   38:    // define max length=1 in case input is 1
+       17:   39:    int max_length = 1;
+        -:   40:    
+        -:   41:    // if i is greater than j, swap them
+       17:   42:    if (i > j) {
+branch  0 taken 6%
+branch  1 taken 94%
+        1:   43:        int temp = j;
+        1:   44:        j = i;
+        1:   45:        i = temp;
+        1:   46:    }
+        -:   47:    
+        -:   48:    // check all numbers between i and j
+     5382:   49:    for (int k = i; k <=j; ++k) {
 branch  0 taken 99%
 branch  1 taken 1%
-     2672:   42:        int length = 1;
-     2672:   43:        int val = k;
-        -:   44:        // compute sequence length
-   466544:   45:        while (val > 1) {
+     2674:   50:        int length = 1;
+     2674:   51:        int val = k;
+        -:   52:        // compute sequence length
+   466868:   53:        while (val > 1) {
 branch  0 taken 99%
 branch  1 taken 1%
-   230600:   46:            if (( val % 2) == 0) {
+   230760:   54:            if (( val % 2) == 0) {
 branch  0 taken 67%
 branch  1 taken 33%
-   153985:   47:                val = val/2;
-   153985:   48:            }
-        -:   49:            else {
-    76615:   50:                val = val * 3 + 1;
-        -:   51:            }
-   230600:   52:            ++length;
-        -:   53:        }
-        -:   54:        // now check if length is greater than max_length
-        -:   55:        // if so, update value of max_length
-     2672:   56:        if (length > max_length) {
+   154091:   55:                val = val/2;
+   154091:   56:            }
+        -:   57:            else {
+    76669:   58:                val = val * 3 + 1;
+        -:   59:            }
+   230760:   60:            ++length;
+        -:   61:        }
+        -:   62:        // now check if length is greater than max_length
+        -:   63:        // if so, update value of max_length
+     2674:   64:        if (length > max_length) {
 branch  0 taken 3%
 branch  1 taken 97%
-       73:   57:            max_length = length;
-       73:   58:        }
-     2672:   59:    }
-       16:   60:    return max_length;
-        -:   61:}
-        -:   62:
-        -:   63:// -------------
-        -:   64:// collatz_print
-        -:   65:// -------------
-        -:   66:
+       75:   65:            max_length = length;
+       75:   66:        }
+     2674:   67:    }
+       17:   68:    return max_length;
+        -:   69:}
+        -:   70:
+        -:   71:// -------------
+        -:   72:// collatz_print
+        -:   73:// -------------
+        -:   74:
 function _Z13collatz_printRNSt3__113basic_ostreamIcNS_11char_traitsIcEEEEiii called 11 returned 100% blocks executed 100%
-        -:   67:void collatz_print (ostream& w, int i, int j, int v) {
-       11:   68:    w << i << " " << j << " " << v << endl;}
-        -:   69:
-        -:   70:// -------------
-        -:   71:// collatz_solve
-        -:   72:// -------------
-        -:   73:
+        -:   75:void collatz_print (ostream& w, int i, int j, int v) {
+       11:   76:    w << i << " " << j << " " << v << endl;}
+        -:   77:
+        -:   78:// -------------
+        -:   79:// collatz_solve
+        -:   80:// -------------
+        -:   81:
 function _Z13collatz_solveRNSt3__113basic_istreamIcNS_11char_traitsIcEEEERNS_13basic_ostreamIcS2_EE called 2 returned 100% blocks executed 83%
-        -:   74:void collatz_solve (istream& r, ostream& w) {
-        2:   75:    string s;
-       48:   76:    while (getline(r, s)) {
+        -:   82:void collatz_solve (istream& r, ostream& w) {
+        2:   83:    string s;
+       48:   84:    while (getline(r, s)) {
 branch  0 taken 100%
 branch  1 taken 0%
 branch  2 taken 100%
 branch  3 taken 0%
 branch  4 taken 83%
 branch  5 taken 17%
-       20:   77:        const pair<int, int> p = collatz_read(s);
+       20:   85:        const pair<int, int> p = collatz_read(s);
 branch  0 taken 100%
 branch  1 taken 0%
-       10:   78:        const int            i = p.first;
-       10:   79:        const int            j = p.second;
-       20:   80:        const int            v = collatz_eval(i, j);
+       10:   86:        const int            i = p.first;
+       10:   87:        const int            j = p.second;
+       20:   88:        const int            v = collatz_eval(i, j);
 branch  0 taken 100%
 branch  1 taken 0%
-       12:   81:        collatz_print(w, i, j, v);}}
+       12:   89:        collatz_print(w, i, j, v);}}
 branch  0 taken 100%
 branch  1 taken 0%

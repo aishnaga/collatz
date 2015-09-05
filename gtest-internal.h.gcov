@@ -438,18 +438,18 @@
         -:  433:// of a Test object.
         -:  434:class TestFactoryBase {
         -:  435: public:
-function _ZN7testing8internal15TestFactoryBaseD2Ev called 9 returned 100% blocks executed 100%
+function _ZN7testing8internal15TestFactoryBaseD2Ev called 10 returned 100% blocks executed 100%
 function _ZN7testing8internal15TestFactoryBaseD0Ev called 0 returned 0% blocks executed 0%
 function _ZN7testing8internal15TestFactoryBaseD1Ev called 0 returned 0% blocks executed 0%
-        9:  436:  virtual ~TestFactoryBase() {}
+       10:  436:  virtual ~TestFactoryBase() {}
         -:  437:
         -:  438:  // Creates a test instance to run. The instance is both created and destroyed
         -:  439:  // within TestInfoImpl::Run()
         -:  440:  virtual Test* CreateTest() = 0;
         -:  441:
         -:  442: protected:
-function _ZN7testing8internal15TestFactoryBaseC2Ev called 9 returned 100% blocks executed 100%
-        9:  443:  TestFactoryBase() {}
+function _ZN7testing8internal15TestFactoryBaseC2Ev called 10 returned 100% blocks executed 100%
+       10:  443:  TestFactoryBase() {}
         -:  444:
         -:  445: private:
         -:  446:  GTEST_DISALLOW_COPY_AND_ASSIGN_(TestFactoryBase);
@@ -468,6 +468,11 @@ function _ZN7testing8internal15TestFactoryImplI25CollatzFixture_print_TestEC2Ev 
 function _ZN7testing8internal15TestFactoryImplI25CollatzFixture_print_TestED0Ev called 1 returned 100% blocks executed 100%
 function _ZN7testing8internal15TestFactoryImplI25CollatzFixture_print_TestED1Ev called 1 returned 100% blocks executed 100%
 function _ZN7testing8internal15TestFactoryImplI25CollatzFixture_print_TestED2Ev called 1 returned 100% blocks executed 100%
+function _ZN7testing8internal15TestFactoryImplI26CollatzFixture_eval_7_TestEC1Ev called 1 returned 100% blocks executed 100%
+function _ZN7testing8internal15TestFactoryImplI26CollatzFixture_eval_7_TestEC2Ev called 1 returned 100% blocks executed 100%
+function _ZN7testing8internal15TestFactoryImplI26CollatzFixture_eval_7_TestED0Ev called 1 returned 100% blocks executed 100%
+function _ZN7testing8internal15TestFactoryImplI26CollatzFixture_eval_7_TestED1Ev called 1 returned 100% blocks executed 100%
+function _ZN7testing8internal15TestFactoryImplI26CollatzFixture_eval_7_TestED2Ev called 1 returned 100% blocks executed 100%
 function _ZN7testing8internal15TestFactoryImplI26CollatzFixture_eval_6_TestEC1Ev called 1 returned 100% blocks executed 100%
 function _ZN7testing8internal15TestFactoryImplI26CollatzFixture_eval_6_TestEC2Ev called 1 returned 100% blocks executed 100%
 function _ZN7testing8internal15TestFactoryImplI26CollatzFixture_eval_6_TestED0Ev called 1 returned 100% blocks executed 100%
@@ -503,10 +508,11 @@ function _ZN7testing8internal15TestFactoryImplI24CollatzFixture_read_TestEC2Ev c
 function _ZN7testing8internal15TestFactoryImplI24CollatzFixture_read_TestED0Ev called 1 returned 100% blocks executed 100%
 function _ZN7testing8internal15TestFactoryImplI24CollatzFixture_read_TestED1Ev called 1 returned 100% blocks executed 100%
 function _ZN7testing8internal15TestFactoryImplI24CollatzFixture_read_TestED2Ev called 1 returned 100% blocks executed 100%
-       45:  452:class TestFactoryImpl : public TestFactoryBase {
+       50:  452:class TestFactoryImpl : public TestFactoryBase {
         -:  453: public:
 function _ZN7testing8internal15TestFactoryImplI25CollatzFixture_solve_TestE10CreateTestEv called 1 returned 100% blocks executed 60%
 function _ZN7testing8internal15TestFactoryImplI25CollatzFixture_print_TestE10CreateTestEv called 1 returned 100% blocks executed 60%
+function _ZN7testing8internal15TestFactoryImplI26CollatzFixture_eval_7_TestE10CreateTestEv called 1 returned 100% blocks executed 60%
 function _ZN7testing8internal15TestFactoryImplI26CollatzFixture_eval_6_TestE10CreateTestEv called 1 returned 100% blocks executed 60%
 function _ZN7testing8internal15TestFactoryImplI26CollatzFixture_eval_5_TestE10CreateTestEv called 1 returned 100% blocks executed 60%
 function _ZN7testing8internal15TestFactoryImplI26CollatzFixture_eval_4_TestE10CreateTestEv called 1 returned 100% blocks executed 60%
@@ -514,7 +520,7 @@ function _ZN7testing8internal15TestFactoryImplI26CollatzFixture_eval_3_TestE10Cr
 function _ZN7testing8internal15TestFactoryImplI26CollatzFixture_eval_2_TestE10CreateTestEv called 1 returned 100% blocks executed 60%
 function _ZN7testing8internal15TestFactoryImplI26CollatzFixture_eval_1_TestE10CreateTestEv called 1 returned 100% blocks executed 60%
 function _ZN7testing8internal15TestFactoryImplI24CollatzFixture_read_TestE10CreateTestEv called 1 returned 100% blocks executed 60%
-       18:  454:  virtual Test* CreateTest() { return new TestClass; }
+       20:  454:  virtual Test* CreateTest() { return new TestClass; }
 branch  0 taken 100%
 branch  1 taken 0%
 branch  2 taken 100%
@@ -533,6 +539,8 @@ branch 14 taken 100%
 branch 15 taken 0%
 branch 16 taken 100%
 branch 17 taken 0%
+branch 18 taken 100%
+branch 19 taken 0%
         -:  455:};
         -:  456:
         -:  457:#if GTEST_OS_WINDOWS

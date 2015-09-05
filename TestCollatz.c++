@@ -62,6 +62,11 @@ TEST(CollatzFixture, eval_5) {
 TEST(CollatzFixture, eval_6) {
     const int v = collatz_eval(9000, 10001);
     ASSERT_EQ(260, v);}
+
+TEST(CollatzFixture, eval_7) {
+    const int v = collatz_eval(1000, 999);
+    ASSERT_EQ(112, v);}
+
 // -----
 // print
 // -----
