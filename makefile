@@ -88,6 +88,8 @@ RunCollatz: Collatz.h Collatz.c++ RunCollatz.c++
 RunCollatz.tmp: RunCollatz
 	./RunCollatz < RunCollatz.in > RunCollatz.tmp
 	diff RunCollatz.tmp RunCollatz.out
+	cp RunCollatz.in collatz-tests/EID-RunCollatz.in
+	cp RunCollatz.out collatz-tests/EID-RunCollatz.out
 
 CollatzTest: Collatz.h CollatzTest.c++
 	$(CXX) $(CXXFLAGS) $(GCOVFLAGS) CollatzTest.c++ -o CollatzTest
@@ -104,3 +106,5 @@ TestCollatz.tmp: TestCollatz
 	$(GCOV) -b Collatz.c++     | grep -A 5 "File 'Collatz.c++'"     >> TestCollatz.tmp
 	$(GCOV) -b TestCollatz.c++ | grep -A 5 "File 'TestCollatz.c++'" >> TestCollatz.tmp
 	cat TestCollatz.tmp
+	cp TestCollatz.c++ collatz-tests/EID-TestCollatz.c++
+	cp TestCollatz.out collatz-tests/EID-TestCollatz.out
